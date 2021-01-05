@@ -1,7 +1,7 @@
 {
   "name": "battlebb",
   "version": "1.0.0",
-  "description": "BattleBB is a simple tool to manage an Internet forum.",
+  "description": "BattleBB is a simple tool to manage an Internet forums.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "path": "^0.12.7"
   }
 }
