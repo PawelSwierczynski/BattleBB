@@ -3,7 +3,7 @@
 var express = require("express");
 var path = require("path");
 
-var indexRoutes = require("./routes/indexRoutes.js")
+var indexRoutes = require("./routes/indexRoutes")
 
 var server = express();
 

@@ -1,10 +1,12 @@
 "use strict";
-
-var database = require("../database.js");
+//To remove
+var example = require("../models/example");
 
 var indexController = {
     renderHomePage(req, res) {
-        database.query("SELECT 2*2;").then(exampleQueryResults => console.log(exampleQueryResults));
+        example.getExample(example => {
+            console.log(example);
+        });
 
         res.render("homePage.ejs");
     }
