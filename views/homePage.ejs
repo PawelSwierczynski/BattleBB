@@ -1,1 +1,22 @@
-<h2>Test</h2>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/navigation", { language: language }) %>
+
+        <main>
+            <div class="jumbotron">
+                <h1></h1>
+            </div>
+        </main>
+
+        <footer class="text-center">
+            <%= language.footerNotice %>
+        </footer>
+
+        <%- include("./partialViews/bootstrapLibraries.ejs"); %>
+    </body>
+</html>

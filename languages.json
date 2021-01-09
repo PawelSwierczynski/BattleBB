@@ -1,0 +1,12 @@
+{
+    "pl": {
+        "mainTitle": "BattleBB",
+        "homePage": "Strona główna",
+        "footerNotice": "Strona korzysta z BattleBB opracowanego przez zespół BattleBB."
+    },
+    "en-us": {
+        "mainTitle": "BattleBB",
+        "homePage": "Home",
+        "footerNotice": "This site uses BattleBB designed by the BattleBB team."
+    }
+}
