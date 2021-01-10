@@ -2,11 +2,19 @@
     "pl": {
         "mainTitle": "BattleBB",
         "homePage": "Strona główna",
+        "userPanel" : "Panel użytkownika",
+        "threads" : "Wątki",
+        "created" : "Utworzono",
+        "categories" : "Kategorie",
         "footerNotice": "Strona korzysta z BattleBB opracowanego przez zespół BattleBB."
     },
     "en-us": {
         "mainTitle": "BattleBB",
         "homePage": "Home",
+        "userPanel" : "User Panel",
+        "threads" : "Threads",
+        "created" : "Created",
+        "categories" : "Kategorie",
         "footerNotice": "This site uses BattleBB designed by the BattleBB team."
     }
 }
