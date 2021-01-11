@@ -6,6 +6,7 @@
         "threads" : "Wątki",
         "created" : "Utworzono",
         "categories" : "Kategorie",
+        "nocategories" : "Brak kategorii.",
         "footerNotice": "Strona korzysta z BattleBB opracowanego przez zespół BattleBB."
     },
     "en-us": {
@@ -15,6 +16,7 @@
         "threads" : "Threads",
         "created" : "Created",
         "categories" : "Kategorie",
+        "nocategories" : "No categories were found.",
         "footerNotice": "This site uses BattleBB designed by the BattleBB team."
     }
 }
