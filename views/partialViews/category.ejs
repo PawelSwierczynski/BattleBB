@@ -1,4 +1,4 @@
-<div class="card mb-3">
+<div class="card mb-3">    
     <div class="card-header pr-0 pl-0">
         <div class="row no-gutters align-items-center w-100">
             <div class="col font-weight-bold pl-3"><%= mainCategory.Nazwa %></div>
@@ -9,5 +9,10 @@
                 </div>
             </div>
         </div>
-    </div>                          
+    </div>
+    <% mainCategory.KategoriePodrzedne.forEach(function(childCategory){ %>
+        <% console.log(childCategory) %>
+        <%- include("./childCategory.ejs", {childCategory:childCategory}); %>        
+    <% }); %>
+                          
 </div>
