@@ -1,7 +1,7 @@
-<div class="card mb-3">    
+<div class="card mb-3">
     <div class="card-header pr-0 pl-0">
         <div class="row no-gutters align-items-center w-100">
-            <div class="col font-weight-bold pl-3"><%= mainCategory.Nazwa %></div>
+            <div class="col font-weight-bold pl-3"><%= category.Nazwa %></div>
             <div class="d-none d-md-block col-6 text-muted">
                 <div class="row no-gutters align-items-center">
                     <div class="col-5"><%= language.threads %></div>
@@ -10,9 +10,7 @@
             </div>
         </div>
     </div>
-    <% mainCategory.KategoriePodrzedne.forEach(function(childCategory){ %>
-        <% console.log(childCategory) %>
-        <%- include("./childCategory.ejs", {childCategory:childCategory}); %>        
-    <% }); %>
-                          
+    <% category.KategoriePodrzedne.forEach(function(childCategory) { %>
+        <%- include("./childCategory.ejs", { childCategory: childCategory }); %>
+    <% }); %>                
 </div>

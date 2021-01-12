@@ -2,27 +2,27 @@
 
 var database = require("../database");
 
-function aggregateMainCategories(mainCategories){
+function aggregateCategoriesWithChildren(categoriesWithChildren){
     var aggregatedMainCategories = [];
 
-    mainCategories.forEach(mainCategory => {
-        if (!aggregatedMainCategories.find(searchCategory => searchCategory.IdKategoria === mainCategory.IdKategoria)){
+    categoriesWithChildren.forEach(categoryWithChildren => {
+        if (!aggregatedMainCategories.find(searchedCategory => searchedCategory.IdKategoria === categoryWithChildren.IdKategoria)){
             aggregatedMainCategories.push({
-                IdKategoria: mainCategory.IdKategoria,
-                Nazwa: mainCategory.Nazwa,
-                IdJęzyk: mainCategory.IdJęzyk,
+                IdKategoria: categoryWithChildren.IdKategoria,
+                Nazwa: categoryWithChildren.Nazwa,
+                IdJęzyk: categoryWithChildren.IdJęzyk,
                 KategoriePodrzedne: []
             });
         }
 
-        if (mainCategory.IdKatNadrzędnej2 != null) {
-            const mainCategoryIndex = aggregatedMainCategories.findIndex(searchCategory => searchCategory.IdKategoria === mainCategory.IdKatNadrzędnej2);
+        if (categoryWithChildren.IdKatNadrzędnej2 != null) {
+            const mainCategoryIndex = aggregatedMainCategories.findIndex(searchCategory => searchCategory.IdKategoria === categoryWithChildren.IdKatNadrzędnej2);
 
             aggregatedMainCategories[mainCategoryIndex]["KategoriePodrzedne"].push({
-                IdKategoriaPodrzędna: mainCategory.IdKategoriaPodrzędna,
-                NazwaPodrzędnej: mainCategory.NazwaPodrzędnej,
-                DataUtworzeniaPodrzędnej: mainCategory.DataUtworzeniaPodrzędnej,
-                IdJęzykPodrzędnej: mainCategory.IdJęzykPodrzędnej
+                IdKategoriaPodrzędna: categoryWithChildren.IdKategoriaPodrzędna,
+                NazwaPodrzędnej: categoryWithChildren.NazwaPodrzędnej,
+                DataUtworzeniaPodrzędnej: categoryWithChildren.DataUtworzeniaPodrzędnej,
+                IdJęzykPodrzędnej: categoryWithChildren.IdJęzykPodrzędnej
             });
         }
     });
@@ -31,9 +31,9 @@ function aggregateMainCategories(mainCategories){
 }
 
 module.exports = {
-    getMainCategories(callback){
-        database.query("SELECT * FROM Kategoria as K1 LEFT JOIN (SELECT IdKategoria as IdKategoriaPodrzędna, Nazwa as NazwaPodrzędnej, DataUtworzenia as DataUtworzeniaPodrzędnej, IdJęzyk as IdJęzykPodrzędnej, IdKatNadrzędnej as IdKatNadrzędnej2 FROM Kategoria) as K2 ON K1.IdKategoria = K2.IdKatNadrzędnej2 WHERE K1.IdKatNadrzędnej IS NULL").then(mainCategories =>{
-            callback(aggregateMainCategories(mainCategories));
+    getCategoriesWithChildren(parentCategoryIdentifier, language, callback){
+        database.query("SELECT * FROM Kategoria as K1 LEFT JOIN (SELECT IdKategoria as IdKategoriaPodrzędna, Nazwa as NazwaPodrzędnej, DataUtworzenia as DataUtworzeniaPodrzędnej, IdJęzyk as IdJęzykPodrzędnej, IdKatNadrzędnej as IdKatNadrzędnej2 FROM Kategoria) as K2 ON K1.IdKategoria = K2.IdKatNadrzędnej2 WHERE K1.IdJęzyk = (SELECT IdJęzyk FROM Język WHERE Nazwa = \"" + language + "\") AND K1.IdKatNadrzędnej" + (parentCategoryIdentifier ? " = " + parentCategoryIdentifier + ";" : " IS NULL;")).then(categoriesWithChildren =>{
+            callback(aggregateCategoriesWithChildren(categoriesWithChildren));
         });                 
     }
 };
