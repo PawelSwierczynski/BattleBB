@@ -7,6 +7,7 @@
         "created" : "Utworzono",
         "categories" : "Kategorie",
         "nocategories" : "Brak kategorii.",
+        "searchbar" : "Wyszukaj",
         "footerNotice": "Strona korzysta z BattleBB opracowanego przez zespół BattleBB."
     },
     "en-us": {
@@ -17,6 +18,7 @@
         "created" : "Created",
         "categories" : "Kategorie",
         "nocategories" : "No categories were found.",
+        "searchbar" : "Search",
         "footerNotice": "This site uses BattleBB designed by the BattleBB team."
     }
 }
