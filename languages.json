@@ -1,5 +1,6 @@
 {
     "pl": {
+        "description": "Polski",
         "mainTitle": "BattleBB",
         "homePage": "Strona główna",
         "userPanel" : "Panel użytkownika",
@@ -11,6 +12,7 @@
         "footerNotice": "Strona korzysta z BattleBB opracowanego przez zespół BattleBB."
     },
     "en-us": {
+        "description": "American English",
         "mainTitle": "BattleBB",
         "homePage": "Home",
         "userPanel" : "User Panel",

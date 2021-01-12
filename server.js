@@ -3,11 +3,14 @@
 var express = require("express");
 var path = require("path");
 var expressSession = require("express-session");
+
 var database = require("./database");
 
-var homePageRoutes = require("./routes/homePageRoutes")
+var homePageRoutes = require("./routes/homePageRoutes");
 
 var server = express();
+
+server.use(express.static("public"));
 
 var mySqlSessionStorage = database.getMySqlSessionStorage();
 
