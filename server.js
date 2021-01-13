@@ -8,6 +8,7 @@ var database = require("./database");
 
 var homePageRoutes = require("./routes/homePageRoutes");
 var languageRoutes = require("./routes/languageRoutes");
+var categoryPageRoutes = require("./routes/categoryPageRoutes");
 var threadRoutes = require("./routes/threadRoutes");
 
 var server = express();
@@ -37,6 +38,7 @@ server.use(function(req, res, next) {
 
 server.use("/", homePageRoutes);
 server.use("/", languageRoutes);
+server.use("/category", categoryPageRoutes);
 server.use("/thread", threadRoutes);
 
 server.listen(3000, function() {
