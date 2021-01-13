@@ -7,6 +7,7 @@ var expressSession = require("express-session");
 var database = require("./database");
 
 var homePageRoutes = require("./routes/homePageRoutes");
+var threadRoutes = require("./routes/threadRoutes");
 
 var server = express();
 
@@ -41,6 +42,7 @@ server.use(function(req, res, next) {
 });
 
 server.use("/", homePageRoutes);
+server.use("/thread", threadRoutes);
 
 server.listen(3000, function() {
     console.log("Server started listening at port 3000.");
