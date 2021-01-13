@@ -13,7 +13,7 @@ var threadController = {
             res.render("thread.ejs", {
                 language: languages[req.session.language],
                 posts: postsLatestVersions,
-                lastVisitedUrl: req.path
+                lastVisitedUrl: req.originalUrl
             });
         });
     }

@@ -9,7 +9,7 @@ var homePageController = {
             res.render("homePage.ejs", {
                 language: languages[req.session.language],
                 categories: categoriesWithChildren,
-                lastVisitedUrl: req.path
+                lastVisitedUrl: req.originalUrl
             });
         });
     }

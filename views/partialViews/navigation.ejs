@@ -15,11 +15,11 @@
                 </li>
             </ul>
             <% if (language.description === "American English") { %>
-                <a href=<%= lastVisitedUrl + "?language=pl" %>>
+                <a href=<%= "/pl?redirectTo=" + lastVisitedUrl %>>
                     <img class="me-3" style="width: 35px" src="/images/PolishFlag.svg" />
                 </a>
             <% } else { %>
-                <a href=<%= lastVisitedUrl + "?language=en-us" %>>
+                <a href=<%= "/en-us?redirectTo=" + lastVisitedUrl %>>
                     <img class="me-3" style="width: 35px" src="/images/USAFlag.svg" />
                 </a>
             <% } %>

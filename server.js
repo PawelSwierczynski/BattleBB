@@ -7,6 +7,7 @@ var expressSession = require("express-session");
 var database = require("./database");
 
 var homePageRoutes = require("./routes/homePageRoutes");
+var languageRoutes = require("./routes/languageRoutes");
 var threadRoutes = require("./routes/threadRoutes");
 
 var server = express();
@@ -31,17 +32,11 @@ server.use(function(req, res, next) {
         req.session.language = "pl";
     }
 
-    if (req.query.language == "pl") {
-        req.session.language = "pl";
-    }
-    else if (req.query.language == "en-us") {
-        req.session.language = "en-us";
-    }
-
     next();
 });
 
 server.use("/", homePageRoutes);
+server.use("/", languageRoutes);
 server.use("/thread", threadRoutes);
 
 server.listen(3000, function() {
