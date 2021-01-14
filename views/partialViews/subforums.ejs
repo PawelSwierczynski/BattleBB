@@ -11,6 +11,12 @@
         </div>
     </div>
     <% subforums.forEach(function(subforum) { %>
-        <%- include("./childSubforum.ejs", { subforum: subforum }); %>
+        <% var number = 0; %>
+        <% threads.forEach(function(thread) { %>
+            <% if(thread.IdSubforum === subforum.IdSubforum) { %>
+                <% number = thread.ThreadCount; %>
+            <% } %>
+        <% }); %> 
+        <%- include("./childSubforum.ejs", { subforum: subforum, threadNumber: number }); %>
     <% }); %>                
 </div>
