@@ -6,6 +6,7 @@ var passwordHasher = require("../utilities/passwordHasher");
 
 var userController = {
     createNewUser(req, res) {
+        //TODO change query to put/post params
         const salt = passwordHasher.generateSalt();
         const hashedPassword = passwordHasher.hashPassword(req.query.password, salt);
 
