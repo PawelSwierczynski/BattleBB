@@ -1,0 +1,22 @@
+<div class="card mb-3">
+    <div class="card-header pr-0 pl-0">
+        <div class="row no-gutters align-items-center w-100">
+            <div class="col font-weight-bold pl-3"><%= parentSubforumName[0].Nazwa %></div>
+            <div class="d-none d-md-block col-6 text-muted">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-5"><%= language.threads %></div>
+                    <div class="col-6"><%= language.created %></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% threads.forEach(function(thread) { %>
+        <% var number = 0; %>        
+        <% posts.forEach(function(post) { %>
+            <% if(post.IdWątek === thread.IdWątek) { %>
+                <% number = post.PostCount; %>
+            <% } %>
+        <% }); %> 
+        <%- include("./childThread.ejs", { thread: thread, postsNumber: number }); %>
+    <% }); %>                
+</div>

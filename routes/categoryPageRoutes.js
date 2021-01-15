@@ -1,11 +1,10 @@
 "use strict";
 
 var express = require("express");
-var subforumController = require("../controllers/subforumController");
+var categoryPageController = require("../controllers/categoryPageController");
 
 var router = express.Router();
 
-
-router.get("/", subforumController.retrieveSubforum);
+router.get("/", categoryPageController.retrieveSubforum);
 
 module.exports = router;

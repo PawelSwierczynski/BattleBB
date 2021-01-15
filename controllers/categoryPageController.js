@@ -3,7 +3,7 @@
 var languages = require("../languages.json");
 var subforum = require("../models/subforum")
 
-var subforumController = {
+var categoryPageController = {
     retrieveSubforum(req, res) {
         subforum.getSubforums(req.query.identifier, (subforums, parentCategoryName, threads)=> {
             res.render("categoryPage.ejs", {
@@ -17,4 +17,4 @@ var subforumController = {
     }
 }
 
-module.exports = subforumController;
+module.exports = categoryPageController;
