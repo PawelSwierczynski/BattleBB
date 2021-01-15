@@ -11,6 +11,12 @@
         </div>
     </div>
     <% category.KategoriePodrzedne.forEach(function(childCategory) { %>
-        <%- include("./childCategory.ejs", { childCategory: childCategory }); %>
+        <% var number = 0; %>
+        <% threads.forEach(function(thread) { %>
+            <% if(thread.IdCategory === childCategory.IdKategoriaPodrzędna) { %>
+                <% number = thread.ThreadCount; %>
+            <% } %>
+        <% }); %> 
+        <%- include("./childCategory.ejs", { childCategory: childCategory, threadNumber: number }); %>
     <% }); %>                
 </div>

@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <% categories.forEach(function(category) { %>
-                            <%- include("./partialViews/category", { category: category }); %>
+                            <%- include("./partialViews/category", { category: category, threads: threads }); %>
                         <% }); %>
                     </div>
                 </div>
