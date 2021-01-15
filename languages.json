@@ -11,7 +11,17 @@
         "noForums" : "Brak for.",
         "searchbar" : "Wyszukaj",
         "footerNotice": "Strona korzysta z BattleBB opracowanego przez zespół BattleBB.",
-        "pages": "Strony"
+        "pages": "Strony",
+        "registerTitle": "Zarejestruj nowe konto",
+        "username": "Login",
+        "email": "Adres e-mail",
+        "password": "Hasło",
+        "submitRegister": "Zarejestruj",
+        "logIn": "Logowanie",
+        "register": "Rejestracja",
+        "duplicateUsername": "Istnieje już użytkownik z podanym loginem. Proszę podać inny.",
+        "duplicateEmail": "Istnieje już użytkownik z podanym adresem e-mail. Proszę podać inny.",
+        "unknownError": "Wystąpił nieznany błąd."
     },
     "en-us": {
         "description": "American English",
@@ -25,6 +35,16 @@
         "noForums" : "No forums were found.",
         "searchbar" : "Search",
         "footerNotice": "This site uses BattleBB designed by the BattleBB team.",
-        "pages": "Pages"
+        "pages": "Pages",
+        "registerTitle": "Register a new account",
+        "username": "Username",
+        "email": "E-mail address",
+        "password": "Password",
+        "submitRegister": "Register",
+        "logIn": "Log in",
+        "register": "Register",
+        "duplicateUsername": "There is an user with a specified username. Please, choose another one.",
+        "duplicateEmail": "There is an user with a specified e-mail address. Please, choose another one.",
+        "unknownError": "There was an unknown error."
     }
 }

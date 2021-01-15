@@ -3,6 +3,7 @@
 var express = require("express");
 var path = require("path");
 var expressSession = require("express-session");
+var bodyParser = require("body-parser");
 
 var database = require("./database");
 
@@ -15,6 +16,7 @@ var userRoutes = require("./routes/userRoutes");
 var server = express();
 
 server.use(express.static("public"));
+server.use(bodyParser.urlencoded({ extended: false }));
 
 var mySqlSessionStorage = database.getMySqlSessionStorage();
 

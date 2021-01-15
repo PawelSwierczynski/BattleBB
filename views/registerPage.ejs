@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl }) %>
+
+        <main>
+            <div class="container-fluid mt-5">
+                <div class="row">
+                    <h2><%= language.registerTitle %></h2>
+                    <% if (errorMessage) { %>
+                        <div class="alert alert-danger mt-3 mb-0" role="alert">
+                            <%= errorMessage %>
+                        </div>
+                    <% } %>
+                    <div class="card mb-3 mt-4"></div>
+                        <form action="/user/register" method="POST">
+                            <div class="mb-3 col-4">
+                                <label for="usernameInput" class="form-label"><%= language.username %></label>
+                                <% if (errorMessage) { %>
+                                    <input type="text" class="form-control" name="username" id="usernameInput" placeholder="<%= language.username %>" value="<%= username %>">
+                                <% } else { %>
+                                    <input type="text" class="form-control" name="username" id="usernameInput" placeholder="<%= language.username %>">
+                                <% } %>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="emailInput" class="form-label"><%= language.email %></label>
+                                <% if (errorMessage) { %>
+                                    <input type="email" class="form-control" name="email" id="emailInput" placeholder="<%= language.email %>" value="<%= email %>">
+                                <% } else { %>
+                                    <input type="email" class="form-control" name="email" id="emailInput" placeholder="<%= language.email %>">
+                                <% } %>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="passwordInput" class="form-label"><%= language.password %></label>
+                                <input type="password" class="form-control" name="password" id="passwordInput" placeholder="<%= language.password %>">
+                            </div>
+                            <button type="submit" class=" btn btn-primary"><%= language.submitRegister %></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <%- include("./partialViews/footer", { language: language })%>
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>

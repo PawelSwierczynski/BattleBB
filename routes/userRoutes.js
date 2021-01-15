@@ -5,7 +5,8 @@ var userController = require("../controllers/userController");
 
 var router = express.Router();
 
-//TODO change get to PUT/POST
-router.get("/newAccount", userController.createNewUser);
+router.get("/register", userController.retrieveRegisterPage);
+router.post("/register", userController.createNewUser);
+router.get("/logIn", userController.retrieveLogInPage);
 
 module.exports = router;
