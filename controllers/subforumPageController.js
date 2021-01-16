@@ -11,7 +11,8 @@ var subforumPageController = {
                 threads: threads,
                 parentSubforumName: parentSubforumName,
                 posts: posts,                
-                lastVisitedUrl: req.path
+                lastVisitedUrl: req.originalUrl,
+                isLoggedIn: req.session.isLoggedIn
             });
         });
     }

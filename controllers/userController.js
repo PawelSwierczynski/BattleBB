@@ -21,7 +21,8 @@ var userController = {
         res.render("registerPage.ejs", {
             language: languages[req.session.language],
             lastVisitedUrl: req.originalUrl,
-            errorMessage: false
+            errorMessage: false,
+            isLoggedIn: req.session.isLoggedIn
         });
     },
     createNewUser(req, res) {
@@ -37,7 +38,8 @@ var userController = {
                     lastVisitedUrl: req.originalUrl,
                     username: req.body.username,
                     email: req.body.email,
-                    errorMessage: errorMessage
+                    errorMessage: errorMessage,
+                    isLoggedIn: req.session.isLoggedIn
                 });
             }
             else {
@@ -49,8 +51,54 @@ var userController = {
         res.render("logInPage.ejs", {
             language: languages[req.session.language],
             lastVisitedUrl: req.originalUrl,
-            errorMessage: false
+            errorMessage: false,
+            isLoggedIn: req.session.isLoggedIn
         });
+    },
+    logIn(req, res) {
+        const username = req.body.username;
+
+        user.retrieveSalt(username, salt => {
+            if (typeof(salt) === "undefined") {
+
+                res.render("logInPage.ejs", {
+                    language: languages[req.session.language],
+                    lastVisitedUrl: req.originalUrl,
+                    username: username,
+                    errorMessage: languages[req.session.language].usernameNotFound,
+                    isLoggedIn: req.session.isLoggedIn
+                });
+            }
+            else {
+                const hashedPassword = passwordHasher.hashPassword(req.body.password, salt[0].Salt);
+
+                user.matchCredentials(username, hashedPassword, matchedCredentialsCount => {
+                    if (matchedCredentialsCount[0].MatchedCredentialsCount == 0) {
+                        res.render("logInPage.ejs", {
+                            language: languages[req.session.language],
+                            lastVisitedUrl: req.originalUrl,
+                            username: username,
+                            errorMessage: languages[req.session.language].incorrectPassword,
+                            isLoggedIn: req.session.isLoggedIn
+                        });
+                    }
+                    else {
+                        user.updateLastLogInDate(username, () => {
+                            req.session.isLoggedIn = true;
+                            req.session.username = username;
+                            
+                            res.redirect("/");
+                        });
+                    }
+                });
+            }
+        });
+    },
+    logOut(req, res) {
+        req.session.isLoggedIn = false;
+        req.session.username = null;
+
+        res.redirect("/");
     }
 };
 

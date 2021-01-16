@@ -20,7 +20,8 @@ var threadController = {
                 posts: postsLatestVersions,
                 currentPage: req.query.page,
                 numberOfPages: numberOfPages,
-                lastVisitedUrl: req.originalUrl
+                lastVisitedUrl: req.originalUrl,
+                isLoggedIn: req.session.isLoggedIn
             });
         });
     }

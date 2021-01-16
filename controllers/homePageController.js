@@ -10,7 +10,8 @@ var homePageController = {
                 language: languages[req.session.language],
                 categories: categoriesWithChildren,
                 threads: threads,
-                lastVisitedUrl: req.originalUrl
+                lastVisitedUrl: req.originalUrl,
+                isLoggedIn: req.session.isLoggedIn
             });
         });
     }

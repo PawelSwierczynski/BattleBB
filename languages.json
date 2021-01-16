@@ -21,7 +21,12 @@
         "register": "Rejestracja",
         "duplicateUsername": "Istnieje już użytkownik z podanym loginem. Proszę podać inny.",
         "duplicateEmail": "Istnieje już użytkownik z podanym adresem e-mail. Proszę podać inny.",
-        "unknownError": "Wystąpił nieznany błąd."
+        "unknownError": "Wystąpił nieznany błąd.",
+        "logInTitle": "Zaloguj się",
+        "submitLogIn": "Zaloguj się",
+        "usernameNotFound": "Nie znaleziono konta z podanym loginem.",
+        "incorrectPassword": "Podano nieprawidłowe hasło.",
+        "logOut": "Wyloguj się"
     },
     "en-us": {
         "description": "American English",
@@ -45,6 +50,11 @@
         "register": "Register",
         "duplicateUsername": "There is an user with a specified username. Please, choose another one.",
         "duplicateEmail": "There is an user with a specified e-mail address. Please, choose another one.",
-        "unknownError": "There was an unknown error."
+        "unknownError": "There was an unknown error.",
+        "logInTitle": "Log in",
+        "submitLogIn": "Log in",
+        "usernameNotFound": "No account credentials match the specified username.",
+        "incorrectPassword": "The specified password is incorrect.",
+        "logOut": "Log out"
     }
 }
