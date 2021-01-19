@@ -34,11 +34,11 @@ function getNumberOfThreads(threads, subforums) {
 
 module.exports = {
     getSubforums(parentCategoryIdentifier, callback){
-        database.query("SELECT * FROM Subforum Where IdKategoria = "  + parentCategoryIdentifier).then(subforums =>{
-            database.query("SELECT Nazwa FROM Kategoria Where IdKategoria = "  + parentCategoryIdentifier).then(parentCategoryName =>{                
-                    database.query("SELECT * FROM Wątek as w JOIN Subforum as s ON w.IdSubforum = s.IdSubforum WHERE s.IdKategoria = " + parentCategoryIdentifier).then(threads =>{                 
-                        callback(formatSubforumsDates(subforums), parentCategoryName, getNumberOfThreads(threads, subforums));
-                    });                        
+        database.query("SELECT * FROM Subforum Where IdKategoria = ?;", [parentCategoryIdentifier]).then(subforums => {
+            database.query("SELECT Nazwa FROM Kategoria Where IdKategoria = ?;", [parentCategoryIdentifier]).then(parentCategoryName => {                
+                database.query("SELECT * FROM Wątek as w JOIN Subforum as s ON w.IdSubforum = s.IdSubforum WHERE s.IdKategoria = ?;", [parentCategoryIdentifier]).then(threads => {                 
+                    callback(formatSubforumsDates(subforums), parentCategoryName, getNumberOfThreads(threads, subforums));
+                });                        
             });             
         });                 
     }

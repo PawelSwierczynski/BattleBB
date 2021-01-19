@@ -34,9 +34,9 @@ function getNumberOfPosts(posts, threads) {
 
 module.exports = {
     getThreads(parentSubforumIdentifier, callback){
-        database.query("SELECT * FROM Wątek Where IdSubforum = "  + parentSubforumIdentifier).then(threads =>{
-            database.query("SELECT Nazwa FROM Subforum Where IdSubforum = "  + parentSubforumIdentifier).then(parentSubforumName =>{                
-                    database.query("SELECT * FROM Post as p JOIN Wątek as w ON w.IdWątek = p.IdWątek WHERE w.IdSubforum = " + parentSubforumIdentifier).then(posts =>{                 
+        database.query("SELECT * FROM Wątek Where IdSubforum = ?;", [parentSubforumIdentifier]).then(threads => {
+            database.query("SELECT Nazwa FROM Subforum Where IdSubforum = ?;", [parentSubforumIdentifier]).then(parentSubforumName => {                
+                    database.query("SELECT * FROM Post as p JOIN Wątek as w ON w.IdWątek = p.IdWątek WHERE w.IdSubforum = ?;", [parentSubforumIdentifier]).then(posts => {                 
                         callback(formatSubforumsDates(threads), parentSubforumName, getNumberOfPosts(posts, threads));
                     });                        
             });             

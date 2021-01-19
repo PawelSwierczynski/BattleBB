@@ -62,10 +62,9 @@ function getNumberOfThreads(threads, categoriesWithChildren) {
 }
 
 module.exports = {
-    getCategoriesWithChildren(parentCategoryIdentifier, language, callback){
-        database.query("SELECT * FROM Kategoria as K1 LEFT JOIN (SELECT IdKategoria as IdKategoriaPodrzędna, Nazwa as NazwaPodrzędnej, DataUtworzenia as DataUtworzeniaPodrzędnej, IdJęzyk as IdJęzykPodrzędnej, IdKatNadrzędnej as IdKatNadrzędnej2 FROM Kategoria) as K2 ON K1.IdKategoria = K2.IdKatNadrzędnej2 WHERE K1.IdJęzyk = (SELECT IdJęzyk FROM Język WHERE Nazwa = \"" + language + "\") AND K1.IdKatNadrzędnej" + (parentCategoryIdentifier ? " = " + parentCategoryIdentifier + ";" : " IS NULL;")).then(categoriesWithChildren =>{
-            
-            database.query("SELECT * FROM Wątek as w JOIN Subforum as s ON w.IdSubforum = s.IdSubforum JOIN Kategoria as k ON k.IdKategoria = s.IdKategoria").then(threads =>{                 
+    getCategoriesWithChildren(parentCategoryIdentifier, language, callback) {
+        database.query("SELECT * FROM Kategoria as K1 LEFT JOIN (SELECT IdKategoria as IdKategoriaPodrzędna, Nazwa as NazwaPodrzędnej, DataUtworzenia as DataUtworzeniaPodrzędnej, IdJęzyk as IdJęzykPodrzędnej, IdKatNadrzędnej as IdKatNadrzędnej2 FROM Kategoria) as K2 ON K1.IdKategoria = K2.IdKatNadrzędnej2 WHERE K1.IdJęzyk = (SELECT IdJęzyk FROM Język WHERE Nazwa = ?) AND K1.IdKatNadrzędnej" + (parentCategoryIdentifier ? " = ?;" : " IS NULL;"), [language, parentCategoryIdentifier]).then(categoriesWithChildren => {
+            database.query("SELECT * FROM Wątek as w JOIN Subforum as s ON w.IdSubforum = s.IdSubforum JOIN Kategoria as k ON k.IdKategoria = s.IdKategoria").then(threads => {                 
                 callback(formatChildCategoryDates(aggregateCategoriesWithChildren(categoriesWithChildren)), getNumberOfThreads(threads, categoriesWithChildren));
             });  
         });                 

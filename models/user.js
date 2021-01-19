@@ -7,7 +7,7 @@ module.exports = {
     createNewAccount(username, email, hashedPassword, salt, callback) {
         const currentDate = dateFormatter.formatDate(new Date());
 
-        database.query("INSERT INTO Użytkownik(Login, Email, Hasło, Sól, DataUtworzenia, OstatnieLogowanie, IdRanga, IdRola) VALUES (\"" + username + "\", \"" + email + "\", \"" + hashedPassword + "\", \"" + salt + "\", \"" + currentDate + "\", \"" + currentDate + "\", 1, 3);").then(() => {
+        database.query("INSERT INTO Użytkownik(Login, Email, Hasło, Sól, DataUtworzenia, OstatnieLogowanie, IdRanga, IdRola) VALUES (?, ?, ?, ?, ?, ?, 1, 3);", [username, email, hashedPassword, salt, currentDate, currentDate]).then(() => {
             callback();
         }).catch(error => {
             callback(error);
