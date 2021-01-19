@@ -3,11 +3,10 @@
     <div class="row no-gutters align-items-center">
         <div class="col">
             <a href="/user?identifier=<%= post.UserIdentifier %>"><%= post.Login %></a> <br>
-            <%= "Nowoprzybyły" %> <br>
-            <!--<%= language["rank" + post.RankIdentifier] %> <br>-->
+            <%= language["rank" + post.RankIdentifier] %> <br>
         </div>
         <div class="col-10">
-            <%= post.Content %> <br><br>
+            <span><%- post.Content %><br><br></span>
         </div>
     </div>
 </div>

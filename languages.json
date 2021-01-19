@@ -5,6 +5,7 @@
         "homePage": "Strona główna",
         "userPanel" : "Panel użytkownika",
         "threads" : "Wątki",
+        "posts": "Posty",
         "created" : "Utworzono",
         "categories" : "Kategorie",
         "noCategories" : "Brak kategorii.",
@@ -26,7 +27,8 @@
         "submitLogIn": "Zaloguj się",
         "usernameNotFound": "Nie znaleziono konta z podanym loginem.",
         "incorrectPassword": "Podano nieprawidłowe hasło.",
-        "logOut": "Wyloguj się"
+        "logOut": "Wyloguj się",
+        "rank1": "Nowoprzybyły"
     },
     "en-us": {
         "description": "American English",
@@ -34,6 +36,7 @@
         "homePage": "Home",
         "userPanel" : "User Panel",
         "threads" : "Threads",
+        "posts": "Posts",
         "created" : "Created",
         "categories" : "Categories",
         "noCategories" : "No categories were found.",
@@ -55,6 +58,7 @@
         "submitLogIn": "Log in",
         "usernameNotFound": "No account credentials match the specified username.",
         "incorrectPassword": "The specified password is incorrect.",
-        "logOut": "Log out"
+        "logOut": "Log out",
+        "rank1": "Newcomer"
     }
 }
