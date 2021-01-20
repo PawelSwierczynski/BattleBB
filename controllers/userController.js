@@ -60,7 +60,6 @@ var userController = {
 
         user.retrieveSalt(username, salt => {
             if (typeof(salt) === "undefined") {
-
                 res.render("logInPage.ejs", {
                     language: languages[req.session.language],
                     lastVisitedUrl: req.originalUrl,

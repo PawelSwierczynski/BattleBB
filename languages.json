@@ -28,7 +28,10 @@
         "usernameNotFound": "Nie znaleziono konta z podanym loginem.",
         "incorrectPassword": "Podano nieprawidłowe hasło.",
         "logOut": "Wyloguj się",
-        "rank1": "Nowoprzybyły"
+        "rank1": "Nowoprzybyły",
+        "newPost": "Dodaj nowy post",
+        "addPostText": "Podaj tekst postu.",
+        "submitPost": "Dodaj post"
     },
     "en-us": {
         "description": "American English",
@@ -59,6 +62,9 @@
         "usernameNotFound": "No account credentials match the specified username.",
         "incorrectPassword": "The specified password is incorrect.",
         "logOut": "Log out",
-        "rank1": "Newcomer"
+        "rank1": "Newcomer",
+        "newPost": "Add a new post",
+        "addPostText": "Write post's text.",
+        "submitPost": "Add post"
     }
 }
