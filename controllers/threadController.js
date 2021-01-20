@@ -12,7 +12,7 @@ function calculateNumberOfPages(postCount) {
 
 var threadController = {
     retrievePostsLatestVersions(req, res) {
-        post.getPostsLatestVersions(req.query.identifier, req.query.page, config.postsPerPage, (thread, postsLatestVersions) => {
+        post.getPostsLatestVersions(req.params.identifier, req.params.page, config.postsPerPage, (thread, postsLatestVersions) => {
             const numberOfPages = calculateNumberOfPages(thread.PostCount);
 
             postsLatestVersions.forEach(postLatestVersion => {
@@ -23,7 +23,7 @@ var threadController = {
                 language: languages[req.session.language],
                 thread: thread,
                 posts: postsLatestVersions,
-                currentPage: req.query.page,
+                currentPage: req.params.page,
                 numberOfPages: numberOfPages,
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn

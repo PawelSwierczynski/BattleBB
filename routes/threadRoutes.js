@@ -5,6 +5,6 @@ var threadController = require("../controllers/threadController");
 
 var router = express.Router();
 
-router.get("/", threadController.retrievePostsLatestVersions);
+router.get("/:identifier/:page", threadController.retrievePostsLatestVersions);
 
 module.exports = router;

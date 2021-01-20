@@ -24,7 +24,7 @@
                     <% if (currentPage == i) { %>
                         <span class="me-1" %>"><%= i %></span>
                     <% } else { %>
-                        <a class="me-1" href="<%= "/thread?identifier=" + thread.Identifier + "&page=" + i %>"><%= i %></a>
+                        <a class="me-1" href="<%= "/thread/" + thread.Identifier + "/" + i %>"><%= i %></a>
                     <% } %>
                 <% } %>
             </div>
