@@ -11,7 +11,8 @@ var homePageController = {
                 categories: categoriesWithChildren,
                 threads: threads,
                 lastVisitedUrl: req.originalUrl,
-                isLoggedIn: req.session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn,
+                isAdmin: req.session.isAdmin
             });
         });
     }

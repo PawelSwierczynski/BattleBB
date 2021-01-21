@@ -66,7 +66,8 @@ var userController = {
                     lastVisitedUrl: req.originalUrl,
                     username: username,
                     errorMessage: languages[req.session.language].usernameNotFound,
-                    isLoggedIn: req.session.isLoggedIn
+                    isLoggedIn: req.session.isLoggedIn,
+                    isAdmin: req.session.isAdmin
                 });
             }
             else {
@@ -83,9 +84,10 @@ var userController = {
                         });
                     }
                     else {
-                        user.updateLastLogInDate(username, () => {
+                        user.updateLastLogInDate(username, bool => {
                             req.session.isLoggedIn = true;
                             req.session.username = username;
+                            req.session.isAdmin = bool;
                             
                             res.redirect("/");
                         });
@@ -96,6 +98,7 @@ var userController = {
     },
     logOut(req, res) {
         req.session.isLoggedIn = false;
+        req.session.isAdmin = false;
         req.session.username = null;
 
         res.redirect("/");

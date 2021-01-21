@@ -13,6 +13,7 @@ var categoryPageRoutes = require("./routes/categoryPageRoutes");
 var subforumPageRoutes = require("./routes/subforumPageRoutes");
 var threadRoutes = require("./routes/threadRoutes");
 var userRoutes = require("./routes/userRoutes");
+var adminRoutes = require("./routes/adminRoutes");
 
 var server = express();
 
@@ -46,6 +47,7 @@ server.use("/category", categoryPageRoutes);
 server.use("/category/subforum", subforumPageRoutes);
 server.use("/thread", threadRoutes);
 server.use("/user", userRoutes);
+server.use("/admin", adminRoutes);
 
 server.listen(3000, function() {
     console.log("Server started listening at port 3000.");

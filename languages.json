@@ -28,7 +28,17 @@
         "usernameNotFound": "Nie znaleziono konta z podanym loginem.",
         "incorrectPassword": "Podano nieprawidłowe hasło.",
         "logOut": "Wyloguj się",
-        "rank1": "Nowoprzybyły"
+        "rank1": "Nowoprzybyły",
+        "adminPanel": "Panel administratora",
+        "addCategory": "Dodaj kategorię",
+        "adminPanelTitle": "Admin",
+        "forumPage": "Forum",
+        "name": "Nazwa",
+        "enterCategoryName":"Wprowadź nazwę kategori",
+        "language":"Język",
+        "english":"Angielski",
+        "polish":"Polski",
+        "parentCategory":"Kategoria nadrzędna"
     },
     "en-us": {
         "description": "American English",
@@ -59,6 +69,16 @@
         "usernameNotFound": "No account credentials match the specified username.",
         "incorrectPassword": "The specified password is incorrect.",
         "logOut": "Log out",
-        "rank1": "Newcomer"
+        "rank1": "Newcomer",
+        "adminPanel": "Administrator panel",
+        "addCategory": "Add category",
+        "adminPanelTitle": "Admin",
+        "forumPage": "Forum",
+        "name": "Name",
+        "enterCategoryName":"Enter category name",
+        "language":"Language",
+        "english":"English",
+        "polish":"Polish",
+        "parentCategory":"Parent category"
     }
 }

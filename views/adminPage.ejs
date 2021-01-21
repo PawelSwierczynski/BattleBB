@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>        
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/adminPanelNavigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn }) %>
+
+
+
+        <main>
+
+        </main>
+
+        <%- include("./partialViews/footer", { language: language })%>        
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>

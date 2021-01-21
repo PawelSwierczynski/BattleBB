@@ -27,7 +27,17 @@ module.exports = {
         const currentDate = dateFormatter.formatDate(new Date());
 
         database.query("UPDATE Użytkownik SET OstatnieLogowanie = ? WHERE Login = ?", [currentDate, username]).then(() => {
-            callback();
+            database.query("SELECT * FROM Użytkownik WHERE Login = ? and IdRola = ?", [username, 1]).then(user => {
+                if(user.length > 0)
+                {
+                    callback(true);
+                }
+                else
+                {
+                    callback(false);
+                }
+                
+            });
         });
     }
 };

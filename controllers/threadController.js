@@ -26,7 +26,8 @@ var threadController = {
                 currentPage: req.params.page,
                 numberOfPages: numberOfPages,
                 lastVisitedUrl: req.originalUrl,
-                isLoggedIn: req.session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn,
+                isAdmin: req.session.isAdmin
             });
         });
     }
