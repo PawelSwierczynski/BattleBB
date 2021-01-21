@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn }) %>
+
+        <main>
+            <div class="container-fluid mt-5">
+                <div class="row">
+                    <h2><%= language.newPost %></h2>
+                    <% if (errorMessage) { %>
+                        <div class="alert alert-danger mt-3 mb-0" role="alert">
+                            <%= errorMessage %>
+                        </div>
+                    <% } %>
+                    <div class="card mb-3 mt-4"></div>
+                        <form action="<%= lastVisitedUrl %>" method="POST">
+                            <div class="mb-3 col-7">
+                                <textarea class="form-control" name="post" id="post" placeholder="<%= language.addPostText %>" rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><%= language.submitPost %></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <%- include("./partialViews/footer", { language: language })%>
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>

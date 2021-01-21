@@ -38,7 +38,10 @@
         "language":"Język",
         "english":"Angielski",
         "polish":"Polski",
-        "parentCategory":"Kategoria nadrzędna"
+        "parentCategory":"Kategoria nadrzędna",
+        "newPost": "Dodaj nowy post",
+        "addPostText": "Podaj tekst postu.",
+        "submitPost": "Dodaj post"
     },
     "en-us": {
         "description": "American English",
@@ -79,6 +82,9 @@
         "language":"Language",
         "english":"English",
         "polish":"Polish",
-        "parentCategory":"Parent category"
+        "parentCategory":"Parent category",
+        "newPost": "Add a new post",
+        "addPostText": "Write post's text.",
+        "submitPost": "Add post"
     }
 }

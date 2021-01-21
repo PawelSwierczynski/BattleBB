@@ -19,12 +19,15 @@
                         </div>
                     </div>
                 </div>
+                <% if (isLoggedIn) { %>
+                    <a href="<%= "/thread/" + thread.Identifier + "/newPost" %>" class="btn btn-primary mt-1 mb-3" role="button"><%= language.newPost %></a><br>
+                <% } %>
                 <span class="me-1"><%= language.pages %>: </span>
                 <% for (i = 1; i <= numberOfPages; i++) { %>
                     <% if (currentPage == i) { %>
                         <span class="me-1" %>"><%= i %></span>
                     <% } else { %>
-                        <a class="me-1" href="<%= "/thread/" + thread.Identifier + "/" + i %>"><%= i %></a>
+                        <a class="me-1" href="<%= "/thread/" + thread.Identifier + "/page/" + i %>"><%= i %></a>
                     <% } %>
                 <% } %>
             </div>
