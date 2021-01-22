@@ -41,7 +41,10 @@
         "parentCategory":"Kategoria nadrzędna",
         "newPost": "Dodaj nowy post",
         "addPostText": "Podaj tekst postu.",
-        "submitPost": "Dodaj post"
+        "submitPost": "Dodaj post",
+        "addCategoryTitle": "Dodaj kategorię",
+        "addCategoryButton": "Dodaj",
+        "noParentCategory": "Brak"
     },
     "en-us": {
         "description": "American English",
@@ -85,6 +88,9 @@
         "parentCategory":"Parent category",
         "newPost": "Add a new post",
         "addPostText": "Write post's text.",
-        "submitPost": "Add post"
+        "submitPost": "Add post",
+        "addCategoryTitle": "Add category",
+        "addCategoryButton": "Add",
+        "noParentCategory": "None"
     }
 }
