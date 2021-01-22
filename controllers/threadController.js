@@ -38,7 +38,6 @@ var threadController = {
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 errorMessage: false,
-                userRole: req.session.userRole,
                 userRole: req.session.userRole
             });
         }
