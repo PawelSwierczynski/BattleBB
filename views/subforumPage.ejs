@@ -10,6 +10,10 @@
         <main>
             <% if (threads.length === 0){ %>
                 <h1><%= language.noForums %></h1>
+
+                <% if (isLoggedIn) { %>
+                    <a href="<%= "/category/subforum/" + subforumIdentifier + "/newThread" %>" class="btn btn-primary mt-1 mb-3" role="button"><%= language.newThread %></a><br>
+                <% } %>
             <% } else { %>
             <div class="container-fluid mt-5">
                 <div class="row">
@@ -17,6 +21,10 @@
                         <%- include("./partialViews/subforum", { threads: threads, parentSubforumName: parentSubforumName, posts: posts }); %>
                     </div>
                 </div>
+
+                <% if (isLoggedIn) { %>
+                    <a href="<%= "/category/subforum/" + subforumIdentifier + "/newThread" %>" class="btn btn-primary mt-1 mb-3" role="button"><%= language.newThread %></a><br>
+                <% } %>
             </div>
             <% } %>
         </main>
