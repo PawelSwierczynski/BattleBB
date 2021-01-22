@@ -13,7 +13,7 @@ var categoryPageController = {
                 threads: threads,
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
-                isAdmin: req.session.isAdmin
+                userRole: req.session.userRole
             });
         });
     }

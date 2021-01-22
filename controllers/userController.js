@@ -22,7 +22,8 @@ var userController = {
             language: languages[req.session.language],
             lastVisitedUrl: req.originalUrl,
             errorMessage: false,
-            isLoggedIn: req.session.isLoggedIn
+            isLoggedIn: req.session.isLoggedIn,
+            userRole: req.session.userRole
         });
     },
     createNewUser(req, res) {
@@ -39,7 +40,8 @@ var userController = {
                     username: req.body.username,
                     email: req.body.email,
                     errorMessage: errorMessage,
-                    isLoggedIn: req.session.isLoggedIn
+                    isLoggedIn: req.session.isLoggedIn,
+                    userRole: req.session.userRole
                 });
             }
             else {
@@ -52,7 +54,8 @@ var userController = {
             language: languages[req.session.language],
             lastVisitedUrl: req.originalUrl,
             errorMessage: false,
-            isLoggedIn: req.session.isLoggedIn
+            isLoggedIn: req.session.isLoggedIn,
+            userRole: req.session.userRole
         });
     },
     logIn(req, res) {
@@ -66,7 +69,7 @@ var userController = {
                     username: username,
                     errorMessage: languages[req.session.language].usernameNotFound,
                     isLoggedIn: req.session.isLoggedIn,
-                    isAdmin: req.session.isAdmin
+                    userRole: req.session.userRole
                 });
             }
             else {
@@ -79,14 +82,15 @@ var userController = {
                             lastVisitedUrl: req.originalUrl,
                             username: username,
                             errorMessage: languages[req.session.language].incorrectPassword,
-                            isLoggedIn: req.session.isLoggedIn
+                            isLoggedIn: req.session.isLoggedIn,
+                            userRole: req.session.userRole
                         });
                     }
                     else {
-                        user.updateLastLogInDate(username, bool => {
+                        user.updateLastLogInDate(username, userRole => {
                             req.session.isLoggedIn = true;
                             req.session.username = username;
-                            req.session.isAdmin = bool;
+                            req.session.userRole = userRole;
                             
                             res.redirect("/");
                         });
@@ -97,7 +101,7 @@ var userController = {
     },
     logOut(req, res) {
         req.session.isLoggedIn = false;
-        req.session.isAdmin = false;
+        req.session.userRole = null;
         req.session.username = null;
 
         res.redirect("/");

@@ -27,7 +27,7 @@ var threadController = {
                 numberOfPages: numberOfPages,
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
-                isAdmin: req.session.isAdmin
+                userRole: req.session.userRole
             });
         });
     },
@@ -37,7 +37,9 @@ var threadController = {
                 language: languages[req.session.language],
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
-                errorMessage: false
+                errorMessage: false,
+                userRole: req.session.userRole,
+                userRole: req.session.userRole
             });
         }
         else {
@@ -52,7 +54,8 @@ var threadController = {
                         language: languages[req.session.language],
                         lastVisitedUrl: req.originalUrl,
                         isLoggedIn: req.session.isLoggedIn,
-                        errorMessage: languages[req.session.language].unknownError
+                        errorMessage: languages[req.session.language].unknownError,
+                        userRole: req.session.userRole
                     });
                 }
                 else {

@@ -5,7 +5,7 @@
     </head>
 
     <body class="container pt-0">
-        <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn }) %>
+        <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
 
         <main>
             <% if (threads.length === 0){ %>

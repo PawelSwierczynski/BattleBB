@@ -7,7 +7,8 @@ var adminController = {
             res.render("addCategoryPage.ejs", {
                 language: languages[req.session.language],
                 lastVisitedUrl: req.originalUrl,
-                isLoggedIn: req.session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn,
+                userRole: req.session.userRole
             });
     },
     retreivePanel(req, res) {        
@@ -15,7 +16,7 @@ var adminController = {
             language: languages[req.session.language],
             lastVisitedUrl: req.originalUrl,
             isLoggedIn: req.session.isLoggedIn,
-            isAdmin: req.session.isAdmin
+            userRole: req.session.userRole
         });
 }
 }
