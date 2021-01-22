@@ -44,7 +44,10 @@
         "submitPost": "Dodaj post",
         "newThread": "Dodaj nowy wątek",
         "threadTitle": "Tytuł wątku",
-        "submitThread": "Dodaj wątek"
+        "submitThread": "Dodaj wątek",
+        "addCategoryTitle": "Dodaj kategorię",
+        "addCategoryButton": "Dodaj",
+        "noParentCategory": "Brak"
     },
     "en-us": {
         "description": "American English",
@@ -91,6 +94,9 @@
         "submitPost": "Add post",
         "newThread": "Add a new thread",
         "threadTitle": "Thread's title",
-        "submitThread": "Add thread"
+        "submitThread": "Add thread",
+        "addCategoryTitle": "Add category",
+        "addCategoryButton": "Add",
+        "noParentCategory": "None"
     }
 }
