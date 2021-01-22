@@ -31,6 +31,14 @@ module.exports = {
             
         }     
     },
+    createNewSubforum(subforumName, parentCategory, callback) {
+        const currentDate = dateFormatter.formatDate(new Date());
+        database.query("SELECT IdKategoria FROM Kategoria WHERE Nazwa = ?", [parentCategory]).then(category => {                
+            database.query("INSERT INTO Subforum(Nazwa, DataUtworzenia, IdKategoria) VALUES (?, ?, ?);", [subforumName, currentDate, category[0].IdKategoria]).then(() => {
+                callback();
+            });
+        });    
+    },
     retreiveCategories(callback) {   
         database.query("SELECT * FROM Kategoria").then(categories => {               
             callback(categories);

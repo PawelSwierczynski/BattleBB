@@ -31,6 +31,7 @@
         "rank1": "Nowoprzybyły",
         "adminPanel": "Panel administratora",
         "addCategory": "Dodaj kategorię",
+        "addSubforum": "Dodaj subforum",
         "adminPanelTitle": "Admin",
         "forumPage": "Forum",
         "name": "Nazwa",
@@ -43,6 +44,7 @@
         "addPostText": "Podaj tekst postu.",
         "submitPost": "Dodaj post",
         "addCategoryTitle": "Dodaj kategorię",
+        "addSubforumTitle": "Dodaj subforum",
         "addCategoryButton": "Dodaj",
         "noParentCategory": "Brak"
     },
@@ -78,6 +80,7 @@
         "rank1": "Newcomer",
         "adminPanel": "Administrator panel",
         "addCategory": "Add category",
+        "addSubforum": "Add subforum",
         "adminPanelTitle": "Admin",
         "forumPage": "Forum",
         "name": "Name",
@@ -90,6 +93,7 @@
         "addPostText": "Write post's text.",
         "submitPost": "Add post",
         "addCategoryTitle": "Add category",
+        "addSubforumTitle": "Add subforum",
         "addCategoryButton": "Add",
         "noParentCategory": "None"
     }
