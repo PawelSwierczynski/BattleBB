@@ -62,7 +62,14 @@
         "noParentCategory": "Brak",
         "userProfile": "Profil użytkownika",
         "lastLogInDate": "Data ostatniego logowania",
-        "editPost": "Edytuj post"
+        "editPost": "Edytuj post",
+        "changeUserRoleTitle": "Zmień rolę użytkownika",
+        "userRole": "Rola użytkownika",
+        "adminRole": "Administrator",
+        "moderatorRole": "Moderator",
+        "regularuserRole": "Użytkownik",
+        "bannedRole": "Zablokowany",
+        "changeRoleButton": "Aktualizuj"
     },
     "en-us": {
         "description": "American English",
@@ -127,6 +134,13 @@
         "noParentCategory": "None",
         "userProfile": "User profile",
         "lastLogInDate": "Last log in date",
-        "editPost": "Edit post"
+        "editPost": "Edit post",
+        "changeUserRoleTitle": "Change user role",
+        "userRole": "User role",
+        "adminRole": "Administrator",
+        "moderatorRole": "Moderator",
+        "regularuserRole": "User",
+        "bannedRole": "Banned",
+        "changeRoleButton": "Update"
     }
 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>        
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/adminPanelNavigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+
+
+
+        <main>
+          <h2><%= language.changeUserRoleTitle %></h2>
+              <form action="/admin/changeUserRole" method="POST">
+                <div class="form-group">
+                  <label for="nameInput"><%= language.username %></label>
+                  <input type="name" class="form-control" name="username" id="nameInput" placeholder=<%= language.enterCategoryName %>>
+                </div>
+                <nav>
+                    <ul class="liveSearchBar">
+                        <% users.forEach(function(user) { %>
+                            <li><a><%= user["Login"] %></a></li>
+                        <% }); %>  
+                    </ul>
+                </nav>
+                <div class="form-group">
+                    <label for="parentCategory"><%= language.userRole %></label>
+                    <select class="form-control" name="userRole" id="parentCategory">
+                        <option><%= language.regularuserRole %></option>          
+                        <option><%= language.moderatorRole %></option>
+                        <option><%= language.adminRole %></option>
+                        <option><%= language.bannedRole %></option>         
+                    </select>
+                </div>              
+                <button type="submit" class=" btn btn-primary"><%= language.changeRoleButton %></button>
+              </form>
+        </main>
+        <script>
+            $(document).ready(function(){
+                $("#nameInput").keyup(function(){
+            
+                    // Retrieve the input field text and reset the count to zero
+                    var filter = $(this).val(), count = 0;
+                    
+                    // Loop through the comment list
+                    $("nav ul li").each(function(){
+            
+                        // If the list item does not contain the text phrase fade it out
+                        if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                            $(this).fadeOut();
+            
+                        // Show the list item if the phrase matches and increase the count by 1
+                        } else {
+                            $(this).show();
+                            count++;
+                        }
+                    });
+                });
+            });
+        </script>
+        <%- include("./partialViews/footer", { language: language })%>        
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>
