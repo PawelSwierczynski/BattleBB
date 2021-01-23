@@ -61,7 +61,8 @@
         "addCategoryButton": "Dodaj",
         "noParentCategory": "Brak",
         "userProfile": "Profil użytkownika",
-        "lastLogInDate": "Data ostatniego logowania"
+        "lastLogInDate": "Data ostatniego logowania",
+        "editPost": "Edytuj post"
     },
     "en-us": {
         "description": "American English",
@@ -125,6 +126,7 @@
         "addCategoryButton": "Add",
         "noParentCategory": "None",
         "userProfile": "User profile",
-        "lastLogInDate": "Last log in date"
+        "lastLogInDate": "Last log in date",
+        "editPost": "Edit post"
     }
 }

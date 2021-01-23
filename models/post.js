@@ -22,5 +22,32 @@ module.exports = {
         }).catch(error => {
             callback(error, null);
         });
+    },
+    retrieveAuthorUsername(postIdentifier, callback) {
+        database.query("SELECT Użytkownik.Login AS Username FROM Post JOIN Użytkownik ON Post.IdUżytkownik = Użytkownik.IdUżytkownik WHERE Post.IdPost = ?;", [postIdentifier]).then(username => {
+            callback(false, username[0].Username);
+        }).catch(error => {
+            callback(error, null);
+        });
+    },
+    getLatestPostVersion(postIdentifier, callback) {
+        database.query("SELECT Treść AS Content FROM Wersja AS Version WHERE IdPost = ? ORDER BY DataUtworzenia DESC LIMIT 1;", [postIdentifier]).then(latestPostVersion => {
+            if (latestPostVersion != undefined) {
+                callback(false, latestPostVersion[0].Content);
+            }
+            else {
+                callback(true, null);
+            }
+        });
+    },
+    addPostNewVersion(content, postIdentifier, callback) {
+        database.query("SELECT addPostsNewVersion(?, ?) AS PostNumber;", [content, postIdentifier]).then(postNumber => {
+            if (postNumber != undefined) {
+                callback(false, postNumber[0].PostNumber);
+            }
+            else {
+                callback(true, null);
+            }
+        });
     }
 };

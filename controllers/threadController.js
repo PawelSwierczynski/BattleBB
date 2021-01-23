@@ -10,6 +10,19 @@ function calculatePageNumber(postCount) {
     return Math.ceil(postCount / config.postsPerPage);
 }
 
+function isUserPermittedToEditPost(username, userRole, postIdentifier) {
+    return new Promise((resolve) => {
+        if (userRole <= 2) {
+            resolve(true);
+        }
+        else {
+            post.retrieveAuthorUsername(postIdentifier, (error, authorUsername) => {
+                resolve(!error && username === authorUsername);
+            });
+        }
+    });
+}
+
 var threadController = {
     retrievePostsLatestVersions(req, res) {
         post.getPostsLatestVersions(req.params.identifier, req.params.page, config.postsPerPage, (thread, postsLatestVersions) => {
@@ -64,6 +77,64 @@ var threadController = {
         }
         else {
             res.redirect("/user/login");
+        }
+    },
+    retrieveEditPostPage(req, res) {
+        if (req.session.isLoggedIn) {
+            isUserPermittedToEditPost(req.session.username, req.session.userRole, req.params.postIdentifier).then(isUserPermittedToEditPost => {
+                if (isUserPermittedToEditPost) {
+                    post.getLatestPostVersion(req.params.postIdentifier, (error, latestPostVersion) => {
+                        if (error) {
+                            res.redirect("/");
+                        }
+                        else {
+                            res.render("editPost.ejs", {
+                                language: languages[req.session.language],
+                                lastVisitedUrl: req.originalUrl,
+                                isLoggedIn: req.session.isLoggedIn,
+                                errorMessage: false,
+                                userRole: req.session.userRole,
+                                latestPostVersion: latestPostVersion
+                            });
+                        }
+                    });
+                }
+                else {
+                    res.redirect("/");
+                }
+            });
+        }
+        else {
+            res.redirect("/user/logIn");
+        }
+    },
+    editPost(req, res) {
+        if (req.session.isLoggedIn) {
+            isUserPermittedToEditPost(req.session.username, req.session.userRole, req.params.postIdentifier).then(isUserPermittedToEditPost => {
+                if (isUserPermittedToEditPost) {
+                    post.addPostNewVersion(req.body.post, req.params.postIdentifier, (error, postNumber) => {
+                        if (error) {
+                            res.render("editPost.ejs", {
+                                language: languages[req.session.language],
+                                lastVisitedUrl: req.originalUrl,
+                                isLoggedIn: req.session.isLoggedIn,
+                                errorMessage: languages[req.session.language].unknownError,
+                                userRole: req.session.userRole,
+                                latestPostVersion: req.body.post
+                            });
+                        }
+                        else {
+                            res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber));
+                        }
+                    });
+                }
+                else {
+                    res.redirect("/");
+                }
+            });
+        }
+        else {
+            res.redirect("/user/logIn");
         }
     }
 }
