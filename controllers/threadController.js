@@ -10,7 +10,7 @@ function calculatePageNumber(postCount) {
     return Math.ceil(postCount / config.postsPerPage);
 }
 
-function isUserPermittedToEditPost(username, userRole, postIdentifier) {
+function retrieveIsUserPermittedToEditPost(username, userRole, postIdentifier) {
     return new Promise((resolve) => {
         if (userRole <= 2) {
             resolve(true);
@@ -23,6 +23,15 @@ function isUserPermittedToEditPost(username, userRole, postIdentifier) {
     });
 }
 
+function isUserPermittedToEditPost(isLoggedIn, username, postAuthorUsername, userRole) {
+    if (isLoggedIn) {
+        return username === postAuthorUsername || userRole <= 2;
+    }
+    else {
+        return false;
+    }
+}
+
 var threadController = {
     retrievePostsLatestVersions(req, res) {
         post.getPostsLatestVersions(req.params.identifier, req.params.page, config.postsPerPage, (thread, postsLatestVersions) => {
@@ -30,6 +39,10 @@ var threadController = {
 
             postsLatestVersions.forEach(postLatestVersion => {
                 postLatestVersion.Content = battlecodeParser.parseBattlecode(postLatestVersion.Content);
+
+                if (isUserPermittedToEditPost(req.session.isLoggedIn, req.session.username, postLatestVersion.Login, req.session.userRole)) {
+                    postLatestVersion.IsUserPermittedToEditPost = true;
+                }
             });
             
             res.render("thread.ejs", {
@@ -40,7 +53,8 @@ var threadController = {
                 numberOfPages: numberOfPages,
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
-                userRole: req.session.userRole
+                userRole: req.session.userRole,
+                username: req.session.username
             });
         });
     },
@@ -81,7 +95,7 @@ var threadController = {
     },
     retrieveEditPostPage(req, res) {
         if (req.session.isLoggedIn) {
-            isUserPermittedToEditPost(req.session.username, req.session.userRole, req.params.postIdentifier).then(isUserPermittedToEditPost => {
+            retrieveIsUserPermittedToEditPost(req.session.username, req.session.userRole, req.params.postIdentifier).then(isUserPermittedToEditPost => {
                 if (isUserPermittedToEditPost) {
                     post.getLatestPostVersion(req.params.postIdentifier, (error, latestPostVersion) => {
                         if (error) {
@@ -110,7 +124,7 @@ var threadController = {
     },
     editPost(req, res) {
         if (req.session.isLoggedIn) {
-            isUserPermittedToEditPost(req.session.username, req.session.userRole, req.params.postIdentifier).then(isUserPermittedToEditPost => {
+            retrieveIsUserPermittedToEditPost(req.session.username, req.session.userRole, req.params.postIdentifier).then(isUserPermittedToEditPost => {
                 if (isUserPermittedToEditPost) {
                     post.addPostNewVersion(req.body.post, req.params.postIdentifier, (error, postNumber) => {
                         if (error) {

@@ -28,7 +28,7 @@ module.exports = {
 
         database.query("UPDATE Użytkownik SET OstatnieLogowanie = ? WHERE Login = ?", [currentDate, username]).then(() => {
             database.query("SELECT IdRola FROM Użytkownik WHERE Login = ?", [username]).then(userRole => {
-                callback(userRole);
+                callback(userRole[0].IdRola);
             });
         });
     },

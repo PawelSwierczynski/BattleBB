@@ -5,8 +5,19 @@
             <a href="/user/<%= post.UserIdentifier %>"><%= post.Login %></a> <br>
             <%= language["rank" + post.RankIdentifier] %> <br>
         </div>
-        <div class="col-10">
-            <span><%- post.Content %><br><br></span>
-        </div>
+        <% if (isLoggedIn) { %>
+            <div class="col-8">
+                <span><%- post.Content %><br></span>
+            </div>
+            <div class="col-2">
+                <% if (post.IsUserPermittedToEditPost != undefined) { %>
+                    <a href="<%= "/thread/" + thread.Identifier + "/editPost/" + post.Identifier %>" class="btn btn-primary mt-1" role="button"><%= language.editPost %></a>
+                <% } %>
+            </div>
+        <% } else { %>
+            <div class="col-10">
+                <span><%- post.Content %><br></span>
+            </div>
+        <% } %>
     </div>
 </div>
