@@ -10,5 +10,6 @@ router.post("/register", userController.createNewUser);
 router.get("/logIn", userController.retrieveLogInPage);
 router.post("/logIn", userController.logIn);
 router.get("/logOut", userController.logOut);
+router.get("/:identifier", userController.retrieveUserProfile);
 
 module.exports = router;

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+
+        <main>
+            <div class="container-fluid mt-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2><%= language.userProfile %></h2>
+                        <div class="card mb-3 mt-4 col-6">
+                            <h3 class="ms-3 mt-3"><%= userProfile.Username %></h3><br>
+                            <% if (userProfile.RoleIdentifier <= 2) { %>
+                                <h3 class="ms-3 mt-2"><%= language["role" + userProfile.RoleIdentifier] %></h3>
+                            <% } %>
+                            <h3 class="ms-3 mt-2"><%= language["rank" + userProfile.RankIdentifier] %></h3>
+                            <h3 class="ms-3 mt-2 mb-3"><%= language.lastLogInDate + ": " + userProfile.LastLogInDate %></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <%- include("./partialViews/footer", { language: language })%>
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>

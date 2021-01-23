@@ -29,6 +29,16 @@
         "incorrectPassword": "Podano nieprawidłowe hasło.",
         "logOut": "Wyloguj się",
         "rank1": "Nowoprzybyły",
+        "rank2": "Początkujący",
+        "rank3": "Uczeń",
+        "rank4": "Poszukiwacz przygód",
+        "rank5": "Weteran",
+        "rank6": "Ekspert",
+        "rank7": "Legenda",
+        "role1": "Administrator",
+        "role2": "Moderator",
+        "role3": "Użytkownik",
+        "role4": "Zbanowany użytkownik",
         "adminPanel": "Panel administratora",
         "addCategory": "Dodaj kategorię",
         "addSubforum": "Dodaj subforum",
@@ -49,7 +59,9 @@
         "addCategoryTitle": "Dodaj kategorię",
         "addSubforumTitle": "Dodaj subforum",
         "addCategoryButton": "Dodaj",
-        "noParentCategory": "Brak"
+        "noParentCategory": "Brak",
+        "userProfile": "Profil użytkownika",
+        "lastLogInDate": "Data ostatniego logowania"
     },
     "en-us": {
         "description": "American English",
@@ -81,6 +93,16 @@
         "incorrectPassword": "The specified password is incorrect.",
         "logOut": "Log out",
         "rank1": "Newcomer",
+        "rank2": "Beginner",
+        "rank3": "Apprentice",
+        "rank4": "Adventurer",
+        "rank5": "Veteran",
+        "rank6": "Expert",
+        "rank7": "Legend",
+        "role1": "Administrator",
+        "role2": "Moderator",
+        "role3": "User",
+        "role4": "Banner user",
         "adminPanel": "Administrator panel",
         "addCategory": "Add category",
         "addSubforum": "Add subforum",
@@ -101,6 +123,8 @@
         "addCategoryTitle": "Add category",
         "addSubforumTitle": "Add subforum",
         "addCategoryButton": "Add",
-        "noParentCategory": "None"
+        "noParentCategory": "None",
+        "userProfile": "User profile",
+        "lastLogInDate": "Last log in date"
     }
 }

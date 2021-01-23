@@ -3,6 +3,7 @@
 var languages = require("../languages.json");
 var user = require("../models/user");
 var passwordHasher = require("../utilities/passwordHasher");
+var dateFormatter = require("../utilities/dateFormatter");
 
 function retrieveErrorMessage(sqlMessageError, language) {
     if (sqlMessageError.includes("UniqueUsername")) {
@@ -105,6 +106,24 @@ var userController = {
         req.session.username = null;
 
         res.redirect("/");
+    },
+    retrieveUserProfile(req, res) {
+        user.retrieveUserProfile(req.params.identifier, (error, userProfile) => {
+            if (error) {
+                res.redirect("/");
+            }
+            else {
+                userProfile.LastLogInDate = dateFormatter.formatDate(userProfile.LastLogInDate);
+
+                res.render("userProfile.ejs", {
+                    language: languages[req.session.language],
+                    lastVisitedUrl: req.originalUrl,
+                    isLoggedIn: req.session.isLoggedIn,
+                    userRole: req.session.userRole,
+                    userProfile: userProfile
+                });
+            }
+        });
     }
 };
 

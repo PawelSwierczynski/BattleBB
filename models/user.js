@@ -31,5 +31,15 @@ module.exports = {
                 callback(userRole);
             });
         });
+    },
+    retrieveUserProfile(userIdentifier, callback) {
+        database.query("SELECT Login AS Username, IdRanga AS RankIdentifier, IdRola AS RoleIdentifier, OstatnieLogowanie AS LastLogInDate FROM Użytkownik WHERE IdUżytkownik = ?;", [userIdentifier]).then(userProfile => {
+            if (userProfile != undefined) {
+                callback(false, userProfile[0]);
+            }
+            else {
+                callback(true, null);
+            }
+        });
     }
 };
