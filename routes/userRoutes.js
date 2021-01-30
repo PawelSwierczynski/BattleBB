@@ -6,10 +6,10 @@ var userController = require("../controllers/userController");
 var router = express.Router();
 
 router.get("/register", userController.retrieveRegisterPage);
-router.post("/register", userController.createNewUser);
+router.post("/register", userController.validateRegister(), userController.registerNewUser);
 router.get("/logIn", userController.retrieveLogInPage);
-router.post("/logIn", userController.logIn);
+router.post("/logIn", userController.validateLogIn(), userController.logIn);
 router.get("/logOut", userController.logOut);
-router.get("/:identifier", userController.retrieveUserProfile);
+router.get("/:identifier", userController.validateUserProfile(), userController.retrieveUserProfile);
 
 module.exports = router;

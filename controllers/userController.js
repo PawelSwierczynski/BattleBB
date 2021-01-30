@@ -1,5 +1,6 @@
 "use strict";
 
+var { body, param, validationResult } = require("express-validator");
 var languages = require("../languages.json");
 var user = require("../models/user");
 var passwordHasher = require("../utilities/passwordHasher");
@@ -18,6 +19,32 @@ function parseErrorMessage(sqlMessageError) {
     }
 }
 
+function validateUsername() {
+    return [
+        body("username", "usernameMissing").exists(),
+        body("username", "usernameTooShort").isLength({ min: 6 }),
+        body("username", "usernameTooLong").isLength({ max: 30 }),
+        body("username", "usernameInvalidCharacters").matches(/[a-zA-Z0-9\-\_]+/)
+    ];
+}
+
+function validateEmail() {
+    return [
+        body("email", "emailMissing").exists(),
+        body("email", "emailTooLong").isLength({ max: 60 }),
+        body("email", "emailInvalid").isEmail()
+    ];
+}
+
+function validatePassword() {
+    return [
+        body("password", "passwordMissing").exists(),
+        body("password", "passwordTooShort").isLength({ min: 6 }),
+        body("password", "passwordTooLong").isLength({ max: 36 }),
+        body("password", "passwordInvalidCharacters").matches(/[a-zA-Z0-9\-\_\!\@\#]+/)
+    ];
+}
+
 var userController = {
     retrieveRegisterPage(req, res) {
         res.render("registerPage.ejs", {
@@ -29,12 +56,32 @@ var userController = {
             noticeMessage: messageHandler.retrieveNoticeMessage(req)
         });
     },
-    createNewUser(req, res) {
+    registerNewUser(req, res) {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.render("registerPage.ejs", {
+                language: languages[req.session.language],
+                lastVisitedUrl: req.originalUrl,
+                username: req.body.username,
+                email: req.body.email,
+                isLoggedIn: req.session.isLoggedIn,
+                userRole: req.session.userRole,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
+            });
+
+            return;
+        }
+
         const salt = passwordHasher.generateSalt();
         const hashedPassword = passwordHasher.hashPassword(req.body.password, salt);
 
-        user.createNewAccount(req.body.username, req.body.email, hashedPassword, salt, error => {
+        user.registerNewAccount(req.body.username, req.body.email, hashedPassword, salt, error => {
             if (error) {
+                console.log(error);
                 const errorMessage = parseErrorMessage(error.sqlMessage, languages[req.session.language]);
                 messageHandler.setErrorMessage(req, errorMessage);
 
@@ -50,6 +97,8 @@ var userController = {
                 });
             }
             else {
+                messageHandler.setNoticeMessage(req, "registerSuccessful")
+
                 res.redirect("/user/logIn");
             }
         });
@@ -66,6 +115,23 @@ var userController = {
     },
     logIn(req, res) {
         const username = req.body.username;
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.render("logInPage.ejs", {
+                language: languages[req.session.language],
+                lastVisitedUrl: req.originalUrl,
+                username: username,
+                isLoggedIn: req.session.isLoggedIn,
+                userRole: req.session.userRole,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
+            });
+
+            return;
+        }
 
         user.retrieveSalt(username, (error, salt) => {
             if (error) {
@@ -119,8 +185,20 @@ var userController = {
         res.redirect("/");
     },
     retrieveUserProfile(req, res) {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.redirect("/");
+
+            return;
+        }
+
         user.retrieveUserProfile(req.params.identifier, (error, userProfile) => {
             if (error) {
+                messageHandler.setErrorMessage(req, "userNotFound");
+
                 res.redirect("/");
             }
             else {
@@ -137,6 +215,25 @@ var userController = {
                 });
             }
         });
+    },
+    validateRegister() {
+        const usernameValidationErrors = validateUsername();
+        const emailValidationErrors = validateEmail();
+        const passwordValidationErrors = validatePassword();
+
+        return usernameValidationErrors.concat(emailValidationErrors, passwordValidationErrors);
+    },
+    validateLogIn() {
+        const usernameValidationErrors = validateUsername();
+        const passwordValidationErrors = validatePassword();
+
+        return usernameValidationErrors.concat(passwordValidationErrors);
+    },
+    validateUserProfile() {
+        return [
+            param("identifier", "userIdentifierMissing").exists(),
+            param("identifier", "userIdentifierInvalid").isInt({ min: 1 })
+        ];
     }
 };
 

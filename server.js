@@ -4,6 +4,7 @@ var express = require("express");
 var path = require("path");
 var expressSession = require("express-session");
 var bodyParser = require("body-parser");
+var expressValidator = require("express-validator");
 
 var database = require("./database");
 

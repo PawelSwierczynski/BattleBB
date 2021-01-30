@@ -74,7 +74,22 @@
         "reportReason": "Opisz powód zgłoszenia",
         "invalidData": "Podano nieprawidłowe dane.",
         "logInRequired": "Wymagane jest zalogowanie się.",
-        "reportSent": "Post został zgłoszony."
+        "reportSent": "Post został zgłoszony.",
+        "usernameMissing": "Musisz podać login.",
+        "usernameTooShort": "Podany login jest za krótki.",
+        "usernameTooLong": "Podany login jest za długi.",
+        "usernameInvalidCharacters": "Podany login zawiera niedozwolone znaki.<br>Dozwolone są wyłącznie litery, cyfry, -, _.",
+        "passwordMissing": "Musisz podać hasło.",
+        "passwordTooShort": "Podane hasło jest za krótkie.",
+        "passwordTooLong": "Podane hasło jest za długie.",
+        "passwordInvalidCharacters": "Podane hasło zawiera niedozwolone znaki.<br>Dozwolone są wyłącznie litery, cyfry, -, _, !, @, #.",
+        "emailMissing": "Musisz podać adres e-mail.",
+        "emailTooLong": "Podany adres e-mail jest za długi.",
+        "emailInvalid": "Podany adres e-mail jest nieprawidłowy.",
+        "registerSuccessful": "Zarejestrowano nowe konto.",
+        "userIdentifierMissing": "Musisz podać identyfikator użytkownika.",
+        "userIdentifierInvalid": "Podano nieprawidłowy identyfikator użytkownika.",
+        "userNotFound": "Nie znaleziono użytkownika o podanym identyfikatorze."
     },
     "en-us": {
         "description": "American English",
@@ -151,6 +166,21 @@
         "reportReason": "Describe a report's reason",
         "invalidData": "Invalid data has been sent.",
         "logInRequired": "You have to be logged in.",
-        "reportSent": "Post has been reported."
+        "reportSent": "Post has been reported.",
+        "usernameMissing": "You have to provide an username.",
+        "usernameTooShort": "Provided username is too short.",
+        "usernameTooLong": "Provided username is too long.",
+        "usernameInvalidCharacters": "Provided username contains invalid characters.<br>Only letters, digits, -, _ are allowed.",
+        "passwordMissing": "You have to provide a password.",
+        "passwordTooShort": "Provided password is too short.",
+        "passwordTooLong": "Provided password it too long.",
+        "passwordInvalidCharacters": "Provided password contains invalid characters.<br>Only letters, digits, -, _, !, @, # are allowed.",
+        "emailMissing": "You have to provide an e-mail address.",
+        "emailTooLong": "Provided e-mail address is too long.",
+        "emailInvalid": "Provided e-mail is invalid",
+        "registerSuccessful": "A new account has been registered.",
+        "userIdentifierMissing": "You have to provide an user identifier.",
+        "userIdentifierInvalid": "Provided user identifier is invalid.",
+        "userNotFound": "User with a specified identifier has not been found."
     }
 }
