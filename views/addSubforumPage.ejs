@@ -6,8 +6,7 @@
 
     <body class="container pt-0">
         <%- include("./partialViews/adminPanelNavigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
-
-
+        <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
 
         <main>
           <h2><%= language.addSubforumTitle %></h2>

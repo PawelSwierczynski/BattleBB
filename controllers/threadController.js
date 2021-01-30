@@ -5,6 +5,7 @@ const config = require("../config.json");
 var languages = require("../languages.json");
 var post = require("../models/post");
 var battlecodeParser = require("../utilities/battlecodeParser");
+var messageHandler = require("../utilities/messageHandler");
 
 function calculatePageNumber(postCount) {
     return Math.ceil(postCount / config.postsPerPage);
@@ -54,7 +55,9 @@ var threadController = {
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 userRole: req.session.userRole,
-                username: req.session.username
+                username: req.session.username,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         });
     },
@@ -64,8 +67,9 @@ var threadController = {
                 language: languages[req.session.language],
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
-                errorMessage: false,
-                userRole: req.session.userRole
+                userRole: req.session.userRole,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         }
         else {
@@ -80,8 +84,9 @@ var threadController = {
                         language: languages[req.session.language],
                         lastVisitedUrl: req.originalUrl,
                         isLoggedIn: req.session.isLoggedIn,
-                        errorMessage: languages[req.session.language].unknownError,
-                        userRole: req.session.userRole
+                        userRole: req.session.userRole,
+                        errorMessage: messageHandler.retrieveErrorMessage(req),
+                        noticeMessage: messageHandler.retrieveNoticeMessage(req)
                     });
                 }
                 else {
@@ -106,9 +111,10 @@ var threadController = {
                                 language: languages[req.session.language],
                                 lastVisitedUrl: req.originalUrl,
                                 isLoggedIn: req.session.isLoggedIn,
-                                errorMessage: false,
                                 userRole: req.session.userRole,
-                                latestPostVersion: latestPostVersion
+                                latestPostVersion: latestPostVersion,
+                                errorMessage: messageHandler.retrieveErrorMessage(req),
+                                noticeMessage: messageHandler.retrieveNoticeMessage(req)
                             });
                         }
                     });
@@ -132,9 +138,10 @@ var threadController = {
                                 language: languages[req.session.language],
                                 lastVisitedUrl: req.originalUrl,
                                 isLoggedIn: req.session.isLoggedIn,
-                                errorMessage: languages[req.session.language].unknownError,
                                 userRole: req.session.userRole,
-                                latestPostVersion: req.body.post
+                                latestPostVersion: req.body.post,
+                                errorMessage: messageHandler.retrieveErrorMessage(req),
+                                noticeMessage: messageHandler.retrieveNoticeMessage(req)
                             });
                         }
                         else {
@@ -148,6 +155,42 @@ var threadController = {
             });
         }
         else {
+            res.redirect("/user/logIn");
+        }
+    },
+    retrieveReportPost(req, res) {
+        if (req.session.isLoggedIn) {
+            res.render("reportPost.ejs", {
+                language: languages[req.session.language],
+                lastVisitedUrl: req.originalUrl,
+                isLoggedIn: req.session.isLoggedIn,
+                userRole: req.session.userRole,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
+    },
+    reportPost(req, res) {
+        if (req.session.isLoggedIn) {
+            post.reportPost(req.body.reportReason, req.params.postIdentifier, req.session.username, (error, postNumber) => {
+                if (error) {
+                    messageHandler.setErrorMessage(req, "invalidData");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "reportSent");
+                }
+
+                res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber));
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
             res.redirect("/user/logIn");
         }
     }

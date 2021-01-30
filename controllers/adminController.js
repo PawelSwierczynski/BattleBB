@@ -2,6 +2,7 @@
 
 var languages = require("../languages.json");
 var admin = require("../models/admin");
+var messageHandler = require("../utilities/messageHandler");
 
 var adminController = {
     retreiveCategories(req, res) {    
@@ -11,7 +12,9 @@ var adminController = {
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 userRole: req.session.userRole,
-                categories: categories
+                categories: categories,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         });    
             
@@ -23,7 +26,9 @@ var adminController = {
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 userRole: req.session.userRole,
-                categories: categories
+                categories: categories,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         });    
             
@@ -35,7 +40,9 @@ var adminController = {
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 userRole: req.session.userRole,
-                users: users
+                users: users,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });    
         });  
     },
@@ -46,7 +53,9 @@ var adminController = {
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 userRole: req.session.userRole,
-                text: text
+                text: text,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         });
     },
@@ -57,7 +66,9 @@ var adminController = {
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 userRole: req.session.userRole,
-                text: text
+                text: text,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         });
     },
@@ -68,7 +79,9 @@ var adminController = {
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 userRole: req.session.userRole,
-                text: text
+                text: text,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         });  
     },
@@ -78,7 +91,9 @@ var adminController = {
             lastVisitedUrl: req.originalUrl,
             isLoggedIn: req.session.isLoggedIn,
             userRole: req.session.userRole,
-            text: ""
+            text: "",
+            errorMessage: messageHandler.retrieveErrorMessage(req),
+            noticeMessage: messageHandler.retrieveNoticeMessage(req)
         });
 }
 }

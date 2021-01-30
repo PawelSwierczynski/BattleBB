@@ -6,16 +6,12 @@
 
     <body class="container pt-0">
         <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+        <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
 
         <main>
             <div class="container-fluid mt-5">
                 <div class="row">
                     <h2><%= language.editPost %></h2>
-                    <% if (errorMessage) { %>
-                        <div class="alert alert-danger mt-3 mb-0" role="alert">
-                            <%= errorMessage %>
-                        </div>
-                    <% } %>
                     <div class="card mb-3 mt-4"></div>
                         <form action="<%= lastVisitedUrl %>" method="POST">
                             <div class="mb-3 col-7">

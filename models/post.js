@@ -48,6 +48,20 @@ module.exports = {
             else {
                 callback(true, null);
             }
+        }).catch(error => {
+            callback(true, null);
+        });
+    },
+    reportPost(reason, postIdentifier, reportingUserUsername, callback) {
+        database.query("SELECT reportPost(?, ?, ?) AS PostNumber;", [reason, postIdentifier, reportingUserUsername]).then(postNumber => {
+            if (postNumber != undefined) {
+                callback(false, postNumber[0].PostNumber);
+            }
+            else {
+                callback(true, null);
+            }
+        }).catch(error => {
+            callback(true, null);
         });
     }
 };

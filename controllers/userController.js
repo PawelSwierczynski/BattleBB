@@ -4,16 +4,17 @@ var languages = require("../languages.json");
 var user = require("../models/user");
 var passwordHasher = require("../utilities/passwordHasher");
 var dateFormatter = require("../utilities/dateFormatter");
+var messageHandler = require("../utilities/messageHandler");
 
-function retrieveErrorMessage(sqlMessageError, language) {
+function parseErrorMessage(sqlMessageError) {
     if (sqlMessageError.includes("UniqueUsername")) {
-        return language.duplicateUsername;
+        return "duplicateUsername";
     }
     else if (sqlMessageError.includes("UniqueEmail")) {
-        return language.duplicateEmail;
+        return "duplicateEmail";
     }
     else {
-        return language.unknownError;
+        return "unknownError";
     }
 }
 
@@ -22,9 +23,10 @@ var userController = {
         res.render("registerPage.ejs", {
             language: languages[req.session.language],
             lastVisitedUrl: req.originalUrl,
-            errorMessage: false,
             isLoggedIn: req.session.isLoggedIn,
-            userRole: req.session.userRole
+            userRole: req.session.userRole,
+            errorMessage: messageHandler.retrieveErrorMessage(req),
+            noticeMessage: messageHandler.retrieveNoticeMessage(req)
         });
     },
     createNewUser(req, res) {
@@ -33,16 +35,18 @@ var userController = {
 
         user.createNewAccount(req.body.username, req.body.email, hashedPassword, salt, error => {
             if (error) {
-                const errorMessage = retrieveErrorMessage(error.sqlMessage, languages[req.session.language]);
+                const errorMessage = parseErrorMessage(error.sqlMessage, languages[req.session.language]);
+                messageHandler.setErrorMessage(req, errorMessage);
 
                 res.render("registerPage.ejs", {
                     language: languages[req.session.language],
                     lastVisitedUrl: req.originalUrl,
                     username: req.body.username,
                     email: req.body.email,
-                    errorMessage: errorMessage,
                     isLoggedIn: req.session.isLoggedIn,
-                    userRole: req.session.userRole
+                    userRole: req.session.userRole,
+                    errorMessage: messageHandler.retrieveErrorMessage(req),
+                    noticeMessage: messageHandler.retrieveNoticeMessage(req)
                 });
             }
             else {
@@ -54,37 +58,44 @@ var userController = {
         res.render("logInPage.ejs", {
             language: languages[req.session.language],
             lastVisitedUrl: req.originalUrl,
-            errorMessage: false,
             isLoggedIn: req.session.isLoggedIn,
-            userRole: req.session.userRole
+            userRole: req.session.userRole,
+            errorMessage: messageHandler.retrieveErrorMessage(req),
+            noticeMessage: messageHandler.retrieveNoticeMessage(req)
         });
     },
     logIn(req, res) {
         const username = req.body.username;
 
-        user.retrieveSalt(username, salt => {
-            if (typeof(salt) === "undefined") {
+        user.retrieveSalt(username, (error, salt) => {
+            if (error) {
+                messageHandler.setErrorMessage(req, "usernameNotFound");
+
                 res.render("logInPage.ejs", {
                     language: languages[req.session.language],
                     lastVisitedUrl: req.originalUrl,
                     username: username,
-                    errorMessage: languages[req.session.language].usernameNotFound,
                     isLoggedIn: req.session.isLoggedIn,
-                    userRole: req.session.userRole
+                    userRole: req.session.userRole,
+                    errorMessage: messageHandler.retrieveErrorMessage(req),
+                    noticeMessage: messageHandler.retrieveNoticeMessage(req)
                 });
             }
             else {
-                const hashedPassword = passwordHasher.hashPassword(req.body.password, salt[0].Salt);
+                const hashedPassword = passwordHasher.hashPassword(req.body.password, salt);
 
-                user.matchCredentials(username, hashedPassword, matchedCredentialsCount => {
-                    if (matchedCredentialsCount[0].MatchedCredentialsCount == 0) {
+                user.areMatchingCredentialsFound(username, hashedPassword, areMatchingCredentialsFound => {
+                    if (areMatchingCredentialsFound) {
+                        messageHandler.setErrorMessage(req, "incorrectPassword");
+
                         res.render("logInPage.ejs", {
                             language: languages[req.session.language],
                             lastVisitedUrl: req.originalUrl,
                             username: username,
-                            errorMessage: languages[req.session.language].incorrectPassword,
                             isLoggedIn: req.session.isLoggedIn,
-                            userRole: req.session.userRole
+                            userRole: req.session.userRole,
+                            errorMessage: messageHandler.retrieveErrorMessage(req),
+                            noticeMessage: messageHandler.retrieveNoticeMessage(req)
                         });
                     }
                     else {
@@ -120,7 +131,9 @@ var userController = {
                     lastVisitedUrl: req.originalUrl,
                     isLoggedIn: req.session.isLoggedIn,
                     userRole: req.session.userRole,
-                    userProfile: userProfile
+                    userProfile: userProfile,
+                    errorMessage: messageHandler.retrieveErrorMessage(req),
+                    noticeMessage: messageHandler.retrieveNoticeMessage(req)
                 });
             }
         });

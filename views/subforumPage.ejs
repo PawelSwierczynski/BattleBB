@@ -6,6 +6,7 @@
 
     <body class="container pt-0">
         <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+        <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
 
         <main>
             <% if (threads.length === 0){ %>

@@ -9,19 +9,19 @@
         <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
 
         <main>
-            <% if (categories.length === 0) { %>
-                <h1><%= language.noCategories %></h1>
-            <% } else { %>
             <div class="container-fluid mt-5">
                 <div class="row">
-                    <div class="col-md-12">
-                        <% categories.forEach(function(category) { %>
-                            <%- include("./partialViews/category", { category: category, threads: threads }); %>
-                        <% }); %>
+                    <h2><%= language.reportPost %></h2>
+                    <div class="card mb-3 mt-4"></div>
+                        <form action="<%= lastVisitedUrl %>" method="POST">
+                            <div class="mb-3 col-7">
+                                <textarea class="form-control" name="reportReason" id="reportReason" placeholder="<%= language.reportReason %>" rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><%= language.reportPost %></button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <% } %>
         </main>
 
         <%- include("./partialViews/footer", { language: language })%>

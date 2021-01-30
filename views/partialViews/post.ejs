@@ -11,8 +11,9 @@
             </div>
             <div class="col-2">
                 <% if (post.IsUserPermittedToEditPost != undefined) { %>
-                    <a href="<%= "/thread/" + thread.Identifier + "/editPost/" + post.Identifier %>" class="btn btn-primary mt-1" role="button"><%= language.editPost %></a>
+                    <a href="<%= "/thread/" + thread.Identifier + "/editPost/" + post.Identifier %>" class="btn btn-primary mt-1" role="button"><%= language.editPost %></a><br>
                 <% } %>
+                <a href="<%= "/thread/" + thread.Identifier + "/reportPost/" + post.Identifier %>" class="btn btn-danger mt-1" role="button"><%= language.reportPost %></a>
             </div>
         <% } else { %>
             <div class="col-10">

@@ -15,12 +15,22 @@ module.exports = {
     },
     retrieveSalt(username, callback) {
         database.query("SELECT Sól AS Salt FROM Użytkownik WHERE Login = ?;", [username]).then(salt => {
-            callback(salt);
+            if (salt[0] != null) {
+                callback(false, salt[0].Salt);
+            }
+            else {
+                callback(true, null);
+            }
         });
     },
-    matchCredentials(username, hashedPassword, callback) {
+    areMatchingCredentialsFound(username, hashedPassword, callback) {
         database.query("SELECT COUNT(Login) AS MatchedCredentialsCount FROM Użytkownik WHERE Login = ? AND Hasło = ?;", [username, hashedPassword]).then(matchedCredentialsCount => {
-            callback(matchedCredentialsCount);
+            if (matchedCredentialsCount != undefined) {
+                callback(true)
+            }
+            else {
+                callback(false)
+            }
         });
     },
     updateLastLogInDate(username, callback) {

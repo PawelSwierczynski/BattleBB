@@ -7,7 +7,7 @@ module.exports = {
     createNewCategory(categoryName, language, parentCategory, callback) {
         const currentDate = dateFormatter.formatDate(new Date());
         var IdLanguage, IdParentKategory;
-        if(language === "Polski" || language === "Polish")
+        if (language === "Polski" || language === "Polish")
         {
             IdLanguage = 1;
         }
@@ -15,7 +15,7 @@ module.exports = {
         {
             IdLanguage = 2;
         }
-        if(parentCategory === "None" || parentCategory === "Brak")
+        if (parentCategory === "None" || parentCategory === "Brak")
         {
             database.query("INSERT INTO Kategoria(Nazwa, DataUtworzenia, IdJęzyk) VALUES (?, ?, ?);", [categoryName, currentDate, IdLanguage]).then(() => {
                 callback("Created new category");
@@ -60,7 +60,6 @@ module.exports = {
         database.query("UPDATE Użytkownik SET IdRola = ? WHERE Login = ?", [roleId, username]).then(() => {
             callback("Changed user role");
         }).catch(error => {
-            console.log(error);
             callback(error);
         });
     },
@@ -74,5 +73,4 @@ module.exports = {
             callback(users);
         });                 
     }
-    
 };

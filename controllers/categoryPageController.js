@@ -1,7 +1,8 @@
 "use strict";
 
 var languages = require("../languages.json");
-var subforum = require("../models/subforum")
+var subforum = require("../models/subforum");
+var messageHandler = require("../utilities/messageHandler");
 
 var categoryPageController = {
     retrieveSubforum(req, res) {
@@ -13,7 +14,9 @@ var categoryPageController = {
                 threads: threads,
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
-                userRole: req.session.userRole
+                userRole: req.session.userRole,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         });
     }

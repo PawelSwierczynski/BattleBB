@@ -2,6 +2,7 @@
 
 var languages = require("../languages.json");
 var category = require("../models/category");
+var messageHandler = require("../utilities/messageHandler");
 
 var homePageController = {
     retrieveHomePage(req, res) {
@@ -12,7 +13,9 @@ var homePageController = {
                 threads: threads,
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
-                userRole: req.session.userRole
+                userRole: req.session.userRole,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         });
     }

@@ -69,7 +69,12 @@
         "moderatorRole": "Moderator",
         "regularuserRole": "Użytkownik",
         "bannedRole": "Zablokowany",
-        "changeRoleButton": "Aktualizuj"
+        "changeRoleButton": "Aktualizuj",
+        "reportPost": "Zgłoś post",
+        "reportReason": "Opisz powód zgłoszenia",
+        "invalidData": "Podano nieprawidłowe dane.",
+        "logInRequired": "Wymagane jest zalogowanie się.",
+        "reportSent": "Post został zgłoszony."
     },
     "en-us": {
         "description": "American English",
@@ -141,6 +146,11 @@
         "moderatorRole": "Moderator",
         "regularuserRole": "User",
         "bannedRole": "Banned",
-        "changeRoleButton": "Update"
+        "changeRoleButton": "Update",
+        "reportPost": "Report post",
+        "reportReason": "Describe a report's reason",
+        "invalidData": "Invalid data has been sent.",
+        "logInRequired": "You have to be logged in.",
+        "reportSent": "Post has been reported."
     }
 }

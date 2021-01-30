@@ -1,7 +1,8 @@
 "use strict";
 
 var languages = require("../languages.json");
-var thread = require("../models/thread")
+var thread = require("../models/thread");
+var messageHandler = require("../utilities/messageHandler");
 
 var subforumPageController = {
     retrieveThread(req, res) {
@@ -14,7 +15,9 @@ var subforumPageController = {
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 userRole: req.session.userRole,
-                subforumIdentifier: req.query.identifier
+                subforumIdentifier: req.query.identifier,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         });
     },
@@ -24,8 +27,9 @@ var subforumPageController = {
                 language: languages[req.session.language],
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
-                errorMessage: false,
-                userRole: req.session.userRole
+                userRole: req.session.userRole,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
             });
         }
         else {
@@ -35,13 +39,16 @@ var subforumPageController = {
     addNewThread(req, res) {
         if (req.session.isLoggedIn) {
             thread.addNewThread(req.params.identifier, req.body.threadTitle, req.session.username, req.body.post, (error, threadIdentifier) => {
+                //TODO add a proper error message
+
                 if (error) {
                     res.render("newThread.ejs", {
                         language: languages[req.session.language],
                         lastVisitedUrl: req.originalUrl,
                         isLoggedIn: req.session.isLoggedIn,
-                        errorMessage: languages[req.session.language].unknownError,
-                        userRole: req.session.userRole
+                        userRole: req.session.userRole,
+                        errorMessage: messageHandler.retrieveErrorMessage(req),
+                        noticeMessage: messageHandler.retrieveNoticeMessage(req)
                     });
                 }
                 else {
