@@ -15,8 +15,16 @@
                     </li>
                     <% if (userRole === 1) { %>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin"><%= language.adminPanel %></a>
+                            <a class="nav-link" href="/moderator"><%= language.moderatorPanel %></a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin"><%= language.adminPanel %></a>
+                        </li>                        
+                    <% } %>
+                    <% if (userRole === 2) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/moderator"><%= language.moderatorPanel %></a>
+                        </li>                     
                     <% } %>
                     <li class="nav-item">
                         <a class="nav-link" href="/user/logOut"><%= language.logOut %></a>

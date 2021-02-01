@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href=""><%= language.moderatorPanelTitle %></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigation">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><%= language.forumPage %></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/moderator/banUser"><%= language.banUserTitle %></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/logOut"><%= language.logOut %></a>
+                </li>
+            </ul>
+            <% if (language.description === "American English") { %>
+                <a href=<%= "/pl?redirectTo=" + lastVisitedUrl %>>
+                    <img class="me-3" style="width: 35px" src="/images/PolishFlag.svg" />
+                </a>
+            <% } else { %>
+                <a href=<%= "/en-us?redirectTo=" + lastVisitedUrl %>>
+                    <img class="me-3" style="width: 35px" src="/images/USAFlag.svg" />
+                </a>
+            <% } %>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>        
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/moderatorPanelNavigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+        <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
+
+        <main>
+            <h1><%= text %></h1>
+        </main>
+
+        <%- include("./partialViews/footer", { language: language })%>        
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>

@@ -41,19 +41,19 @@ module.exports = {
     },
     changeUserRole(username, userRole, callback) {
         var roleId;
-        if(userRole === "Użytkownik")
+        if(userRole === "Użytkownik" || userRole === "User")
         {
             roleId = 3;
         }
-        else if(userRole === "Moderator")
+        else if(userRole === "Moderator" || userRole === "Moderator")
         {
             roleId = 2;       
         }
-        else if(userRole === "Administrator")
+        else if(userRole === "Administrator" || userRole === "Administrator")
         {
             roleId = 1;
         }
-        else if(userRole === "Zablokowany")
+        else if(userRole === "Zablokowany" || userRole === "Banned")
         {
             roleId = 4;
         }
