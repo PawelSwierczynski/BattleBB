@@ -152,6 +152,15 @@ var userController = {
 
                 user.areMatchingCredentialsFound(username, hashedPassword, areMatchingCredentialsFound => {
                     if (areMatchingCredentialsFound) {
+                        user.updateLastLogInDate(username, userRole => {
+                            req.session.isLoggedIn = true;
+                            req.session.username = username;
+                            req.session.userRole = userRole;
+                            
+                            res.redirect("/");
+                        });
+                    }
+                    else {
                         messageHandler.setErrorMessage(req, "incorrectPassword");
 
                         res.render("logInPage.ejs", {
@@ -162,15 +171,6 @@ var userController = {
                             userRole: req.session.userRole,
                             errorMessage: messageHandler.retrieveErrorMessage(req),
                             noticeMessage: messageHandler.retrieveNoticeMessage(req)
-                        });
-                    }
-                    else {
-                        user.updateLastLogInDate(username, userRole => {
-                            req.session.isLoggedIn = true;
-                            req.session.username = username;
-                            req.session.userRole = userRole;
-                            
-                            res.redirect("/");
                         });
                     }
                 });
