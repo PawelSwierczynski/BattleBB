@@ -106,7 +106,12 @@
         "postIdentifierInvalid": "Podano nieprawidłowy identyfikator postu.",
         "cannotAddPostVersion": "Edycja postu nie powiodła się.",
         "reportReasonMissing": "Musisz podać powód zgłoszenia postu.",
-        "reportReasonEmpty": "Treść powodu zgłoszenia postu nie może być pusta."
+        "reportReasonEmpty": "Treść powodu zgłoszenia postu nie może być pusta.",
+        "noMatchingThreads": "Nie znaleziono wątków dla podanej frazy.",
+        "phraseMissing": "Musisz podać frazę.",
+        "phraseInvalid": "Podano nieprawidłową frazę.",
+        "phraseEmpty": "Fraza nie może być pusta.",
+        "phraseTooLong": "Długość frazy nie może przekraczać 40 znaków."
     },
     "en-us": {
         "description": "American English",
@@ -215,6 +220,11 @@
         "postIdentifierInvalid": "Provided post identifier is invalid.",
         "cannotAddPostVersion": "Editing post has failed.",
         "reportReasonMissing": "You have to provide a report reason.",
-        "reportReasonEmpty": "Report reason's content cannot be empty."
+        "reportReasonEmpty": "Report reason's content cannot be empty.",
+        "noMatchingThreads": "No threads matching the phrase have been found.",
+        "phraseMissing": "You have to provide a phrase.",
+        "phraseInvalid": "Provided phrase is invalid.",
+        "phraseEmpty": "Phrase cannot be empty.",
+        "phraseTooLong": "Phrase's lenght cannot exceed 40 characters."
     }
 }

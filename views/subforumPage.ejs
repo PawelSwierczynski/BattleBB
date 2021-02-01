@@ -9,7 +9,7 @@
         <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
 
         <main>
-            <% if (threads.length === 0){ %>
+            <% if (threads.length === 0) { %>
                 <h1><%= language.noForums %></h1>
 
                 <% if (isLoggedIn) { %>

@@ -4,7 +4,6 @@ var express = require("express");
 var path = require("path");
 var expressSession = require("express-session");
 var bodyParser = require("body-parser");
-var expressValidator = require("express-validator");
 
 var database = require("./database");
 
@@ -16,6 +15,7 @@ var threadRoutes = require("./routes/threadRoutes");
 var userRoutes = require("./routes/userRoutes");
 var adminRoutes = require("./routes/adminRoutes");
 var moderatorRoutes = require("./routes/moderatorRoutes");
+var searchRoutes = require("./routes/searchRoutes");
 
 var server = express();
 
@@ -51,6 +51,7 @@ server.use("/thread", threadRoutes);
 server.use("/user", userRoutes);
 server.use("/admin", adminRoutes);
 server.use("/moderator", moderatorRoutes);
+server.use("/search", searchRoutes);
 
 server.listen(3000, function() {
     console.log("Server started listening at port 3000.");

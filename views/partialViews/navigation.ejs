@@ -47,11 +47,10 @@
                     <img class="me-3" style="width: 35px" src="/images/USAFlag.svg" />
                 </a>
             <% } %>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" aria-label="Search">
+            <form class="d-flex" action="/search" method="GET">
+                <input class="form-control me-2" name="phrase" type="search" aria-label="Search">
                 <button class="btn btn-primary" type="submit"><%= language.searchbar %></button>
             </form>
         </div>
     </div>
 </nav>
-

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+        <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
+
+        <% if (matchedThreads != null) { %>
+            <main>
+                <div class="container-fluid mt-5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-3">
+                                <div class="card-header pr-0 pl-0">
+                                    <div class="row no-gutters align-items-center w-100">
+                                        <div class="d-none d-md-block col-12 text-muted">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-6"><%= language.threads %></div>
+                                                <div class="col-3"><%= language.posts %></div>
+                                                <div class="col-2"><%= language.created %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <% matchedThreads.forEach(function(matchedThread) { %>
+                                    <%- include("./partialViews/matchedThread", { matchedThread: matchedThread }) %>
+                                <% }); %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        <% } %>
+
+        <%- include("./partialViews/footer", { language: language }) %>
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>
