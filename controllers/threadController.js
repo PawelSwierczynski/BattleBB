@@ -2,6 +2,7 @@
 
 const config = require("../config.json");
 
+var { body, param, validationResult } = require("express-validator");
 var languages = require("../languages.json");
 var post = require("../models/post");
 var battlecodeParser = require("../utilities/battlecodeParser");
@@ -33,9 +34,55 @@ function isUserPermittedToEditPost(isLoggedIn, username, postAuthorUsername, use
     }
 }
 
+function validatePage() {
+    return [
+        param("page", "pageMissing").exists(),
+        param("page", "pageInvalid").isInt({ min: 1 })
+    ];
+}
+
+function validatePost() {
+    return [
+        body("post", "postMissing").exists(),
+        body("post", "postEmpty").isString().isLength({ min: 1 })
+    ];
+}
+
+function validatePostIdentifier() {
+    return [
+        param("postIdentifier", "postIdentifierMissing").exists(),
+        param("postIdentifier", "postIdentifierInvalid").isInt({ min: 1 })
+    ];
+}
+
+function validateReportReason() {
+    return [
+        body("reportReason", "reportReasonMissing").exists(),
+        body("reportReason", "reportReasonEmpty").isString().isLength({ min: 1 })
+    ];
+}
+
 var threadController = {
     retrievePostsLatestVersions(req, res) {
-        post.getPostsLatestVersions(req.params.identifier, req.params.page, config.postsPerPage, (thread, postsLatestVersions) => {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.redirect("/");
+
+            return;
+        }
+
+        post.getPostsLatestVersions(req.params.threadIdentifier, req.params.page, config.postsPerPage, (error, thread, postsLatestVersions) => {
+            if (error) {
+                messageHandler.setErrorMessage(req, "threadNotFound");
+
+                res.redirect("/");
+
+                return;
+            }
+
             const numberOfPages = calculatePageNumber(thread.PostCount);
 
             postsLatestVersions.forEach(postLatestVersion => {
@@ -62,6 +109,16 @@ var threadController = {
         });
     },
     retrieveNewPostPage(req, res) {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.redirect("/");
+
+            return;
+        }
+
         if (req.session.isLoggedIn) {
             res.render("newPost.ejs", {
                 language: languages[req.session.language],
@@ -73,12 +130,24 @@ var threadController = {
             });
         }
         else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
             res.redirect("/user/logIn");
         }
     },
     addNewPost(req, res) {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.redirect("/");
+
+            return;
+        }
+
         if (req.session.isLoggedIn) {
-            post.addNewPost(req.params.identifier, req.session.username, req.body.post, (error, postNumber) => {
+            post.addNewPost(req.params.threadIdentifier, req.session.username, req.body.post, (error, postNumber) => {
                 if (error) {
                     res.render("newPost.ejs", {
                         language: languages[req.session.language],
@@ -90,20 +159,34 @@ var threadController = {
                     });
                 }
                 else {
-                    res.redirect("/thread/" + req.params.identifier + "/page/" + calculatePageNumber(postNumber));
+                    res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber);
                 }
             });
         }
         else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
             res.redirect("/user/login");
         }
     },
     retrieveEditPostPage(req, res) {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.redirect("/");
+
+            return;
+        }
+
         if (req.session.isLoggedIn) {
             retrieveIsUserPermittedToEditPost(req.session.username, req.session.userRole, req.params.postIdentifier).then(isUserPermittedToEditPost => {
                 if (isUserPermittedToEditPost) {
                     post.getLatestPostVersion(req.params.postIdentifier, (error, latestPostVersion) => {
                         if (error) {
+                            messageHandler.setErrorMessage(req, "invalidData");
+
                             res.redirect("/");
                         }
                         else {
@@ -120,20 +203,36 @@ var threadController = {
                     });
                 }
                 else {
+                    messageHandler.setErrorMessage(req, "userNoPermission")
+
                     res.redirect("/");
                 }
             });
         }
         else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
             res.redirect("/user/logIn");
         }
     },
     editPost(req, res) {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.redirect("/");
+
+            return;
+        }
+
         if (req.session.isLoggedIn) {
             retrieveIsUserPermittedToEditPost(req.session.username, req.session.userRole, req.params.postIdentifier).then(isUserPermittedToEditPost => {
                 if (isUserPermittedToEditPost) {
                     post.addPostNewVersion(req.body.post, req.params.postIdentifier, (error, postNumber) => {
                         if (error) {
+                            messageHandler.setErrorMessage(req, "cannotAddPostVersion");
+
                             res.render("editPost.ejs", {
                                 language: languages[req.session.language],
                                 lastVisitedUrl: req.originalUrl,
@@ -145,20 +244,34 @@ var threadController = {
                             });
                         }
                         else {
-                            res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber));
+                            res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber);
                         }
                     });
                 }
                 else {
+                    messageHandler.setErrorMessage(req, "userNoPermission")
+
                     res.redirect("/");
                 }
             });
         }
         else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
             res.redirect("/user/logIn");
         }
     },
     retrieveReportPost(req, res) {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.redirect("/");
+
+            return;
+        }
+
         if (req.session.isLoggedIn) {
             res.render("reportPost.ejs", {
                 language: languages[req.session.language],
@@ -176,6 +289,16 @@ var threadController = {
         }
     },
     reportPost(req, res) {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.redirect("/");
+
+            return;
+        }
+
         if (req.session.isLoggedIn) {
             post.reportPost(req.body.reportReason, req.params.postIdentifier, req.session.username, (error, postNumber) => {
                 if (error) {
@@ -193,6 +316,47 @@ var threadController = {
 
             res.redirect("/user/logIn");
         }
+    },
+    validateThreadIdentifier() {
+        return [
+            param("threadIdentifier", "threadIdentifierMissing").exists(),
+            param("threadIdentifier", "threadIdentifierInvalid").isInt({ min: 1 })
+        ];
+    },
+    validatePostsLatestVersions() {
+        const threadIdentifierErrors = this.validateThreadIdentifier();
+        const pageErrors = validatePage();
+
+        return threadIdentifierErrors.concat(pageErrors);
+    },
+    validateNewPost() {
+        const threadIdentifierErrors = this.validateThreadIdentifier();
+        const postErrors = validatePost();
+
+        return threadIdentifierErrors.concat(postErrors);
+    },
+    validateRetrieveEditPost() {
+        const threadIdentifierErrors = this.validateThreadIdentifier();
+        const postIdentifierErrors = validatePostIdentifier();
+
+        return threadIdentifierErrors.concat(postIdentifierErrors);
+    },
+    validateEditPost() {
+        const threadIdentifierErrors = this.validateThreadIdentifier();
+        const postIdentifierErrors = validatePostIdentifier();
+        const postErrors = validatePost();
+
+        return threadIdentifierErrors.concat(postIdentifierErrors, postErrors);
+    },
+    validateRetrieveReportPost() {
+        return this.validateRetrieveEditPost();
+    },
+    validateReportPost() {
+        const threadIdentifierErrors = this.validateThreadIdentifier();
+        const postIdentifierErrors = validatePostIdentifier();
+        const reportReasonErrors = validateReportReason();
+
+        return threadIdentifierErrors.concat(postIdentifierErrors, reportReasonErrors);
     }
 }
 

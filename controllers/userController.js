@@ -22,7 +22,7 @@ function parseErrorMessage(sqlMessageError) {
 function validateUsername() {
     return [
         body("username", "usernameMissing").exists(),
-        body("username", "usernameTooShort").isLength({ min: 6 }),
+        body("username", "usernameTooShort").isLength({ min: 4 }),
         body("username", "usernameTooLong").isLength({ max: 30 }),
         body("username", "usernameInvalidCharacters").matches(/[a-zA-Z0-9\-\_]+/)
     ];

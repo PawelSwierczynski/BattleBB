@@ -39,8 +39,6 @@ var subforumPageController = {
     addNewThread(req, res) {
         if (req.session.isLoggedIn) {
             thread.addNewThread(req.params.identifier, req.body.threadTitle, req.session.username, req.body.post, (error, threadIdentifier) => {
-                //TODO add a proper error message
-
                 if (error) {
                     res.render("newThread.ejs", {
                         language: languages[req.session.language],
