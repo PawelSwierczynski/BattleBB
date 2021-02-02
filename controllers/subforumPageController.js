@@ -57,6 +57,82 @@ var subforumPageController = {
         else {
             res.redirect("/user/login");
         }
+    },    
+    closeThread(req, res) {
+        if (req.session.isLoggedIn) {
+            thread.closeThread(req.params.threadIdentifier, (error) => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "closedThread");
+                }
+
+                res.redirect("/category/subforum?identifier=" + req.params.identifier);
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
+    },
+    openThread(req, res) {
+        if (req.session.isLoggedIn) {
+            thread.openThread(req.params.threadIdentifier, (error) => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "openedThread");
+                }
+
+                res.redirect("/category/subforum?identifier=" + req.params.identifier);
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
+    },
+    pinThread(req, res) {
+        if (req.session.isLoggedIn) {
+            thread.pinThread(req.params.threadIdentifier, (error) => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "pinnedThread");
+                }
+
+                res.redirect("/category/subforum?identifier=" + req.params.identifier);
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
+    },
+    unpinThread(req, res) {
+        if (req.session.isLoggedIn) {
+            thread.unpinThread(req.params.threadIdentifier, (error) => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "unpinnedThread");
+                }
+
+                res.redirect("/category/subforum?identifier=" + req.params.identifier);
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
     }
 }
 

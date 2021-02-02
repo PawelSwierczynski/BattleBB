@@ -1,12 +1,54 @@
 <hr class="m-0">
 <div class="card-body py-3">
     <div class="row no-gutters align-items-center">
-        <div class="col"><a href="<%= "/thread/" + thread.IdWątek + "/page/1" %>"  class="text-big font-weight-semibold" data-abc="true"><%= thread["Tytuł"] %></a></div>
+        <div class="col"><a href="<%= "/thread/" + thread.IdWątek + "/page/1" %>"  class="text-big font-weight-semibold" data-abc="true"><%= thread["Tytuł"] %></a></div>        
         <div class="d-none d-md-block col-6">
             <div class="row no-gutters align-items-center">
                 <div class="col-5"><%= postsNumber %></div>
-                <div class="col-6"><%= thread["DataUtworzenia"] %></div>
-            </div>
+                <div class="col-6"><%= thread["DataUtworzenia"] %></div>                
+            </div>            
         </div>
+        <% if (userRole === 1 || userRole === 2) { %>
+            <% if (thread["CzyOtwarty"] === 1) { %>
+            <form action="<%= "/category/subforum/" + subforumIdentifier + "/closeThread/" + thread.IdWątek %>" method="POST">
+            <div class="d-none d-md-block col-0">
+                <button type="submit" class=" btn btn-primary"><%= language.closeThreadButton %></button>
+            </div>  
+            </form>   
+                <% if (thread["CzyPrzypięty"] === 1) { %>
+                    <form action="<%= "/category/subforum/" + subforumIdentifier + "/unpinThread/" + thread.IdWątek %>" method="POST">
+                        <div class="d-none d-md-block col-0">
+                            <button type="submit" class=" btn btn-primary"><%= language.unpinThreadButton %></button>
+                        </div>  
+                    </form> 
+                <% } else if(thread["CzyPrzypięty"] === 0) { %> 
+                    <form action="<%= "/category/subforum/" + subforumIdentifier + "/pinThread/" + thread.IdWątek %>" method="POST">
+                        <div class="d-none d-md-block col-0">
+                            <button type="submit" class=" btn btn-primary"><%= language.pinThreadButton %></button>
+                        </div>  
+                    </form> 
+                <% } %> 
+            <% } else if(thread["CzyOtwarty"] === 0) { %>    
+            <form action="<%= "/category/subforum/" + subforumIdentifier + "/openThread/" + thread.IdWątek %>" method="POST">
+                <div class="d-none d-md-block col-0">
+                    <button type="submit" class=" btn btn-primary"><%= language.openThreadButton %></button>
+                </div>  
+            </form> 
+                <% if (thread["CzyPrzypięty"] === 1) { %>
+                    <form action="<%= "/category/subforum/" + subforumIdentifier + "/unpinThread/" + thread.IdWątek %>" method="POST">
+                        <div class="d-none d-md-block col-0">
+                            <button type="submit" class=" btn btn-primary"><%= language.unpinThreadButton %></button>
+                        </div>  
+                    </form> 
+                <% } else if(thread["CzyPrzypięty"] === 0) { %> 
+                    <form action="<%= "/category/subforum/" + subforumIdentifier + "/pinThread/" + thread.IdWątek %>" method="POST">
+                        <div class="d-none d-md-block col-0">
+                            <button type="submit" class=" btn btn-primary"><%= language.pinThreadButton %></button>
+                        </div>  
+                    </form> 
+                <% } %> 
+            <% } %>            
+        <% } %>             
     </div>
+    
 </div>

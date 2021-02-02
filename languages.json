@@ -111,7 +111,16 @@
         "phraseMissing": "Musisz podać frazę.",
         "phraseInvalid": "Podano nieprawidłową frazę.",
         "phraseEmpty": "Fraza nie może być pusta.",
-        "phraseTooLong": "Długość frazy nie może przekraczać 40 znaków."
+        "phraseTooLong": "Długość frazy nie może przekraczać 40 znaków.",
+        "pinThreadButton": "Przypnij wątek",
+        "unpinThreadButton": "Odepnij wątek",
+        "closeThreadButton": "Zamknij wątek",
+        "openThreadButton": "Otwórz wątek",
+        "closedThread": "Zamknięto wątek",
+        "justError": "Błąd",
+        "openedThread": "Otwarto wątek",
+        "pinnedThread": "Przypięto wątek",
+        "unpinnedThread": "Odpięto wątek"
     },
     "en-us": {
         "description": "American English",
@@ -225,6 +234,15 @@
         "phraseMissing": "You have to provide a phrase.",
         "phraseInvalid": "Provided phrase is invalid.",
         "phraseEmpty": "Phrase cannot be empty.",
-        "phraseTooLong": "Phrase's lenght cannot exceed 40 characters."
+        "phraseTooLong": "Phrase's lenght cannot exceed 40 characters.",
+        "pinThreadButton": "Pin thread",
+        "unpinThreadButton": "Unpin thread",
+        "closeThreadButton": "Close thread",
+        "openThreadButton": "Open thread",
+        "closedThread": "Thread closed",
+        "justError": "Error",
+        "openedThread": "Thread opened",
+        "pinnedThread": "Thread pinned",
+        "unpinnedThread": "Thread unpinned"
     }
 }

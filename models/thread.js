@@ -56,5 +56,33 @@ module.exports = {
                 callback(true, null);
             }
         });
+    },
+    closeThread(threadIdentifier, callback) {
+        database.query("UPDATE Wątek SET CzyOtwarty = 0 WHERE IdWątek = ?", [threadIdentifier]).then(() => {
+            
+            callback(true);
+            
+        });
+    },
+    openThread(threadIdentifier, callback) {
+        database.query("UPDATE Wątek SET CzyOtwarty = 1 WHERE IdWątek = ?", [threadIdentifier]).then(() => {
+            
+            callback(true);
+            
+        });
+    },
+    pinThread(threadIdentifier, callback) {
+        database.query("UPDATE Wątek SET CzyPrzypięty = 1 WHERE IdWątek = ?", [threadIdentifier]).then(() => {
+            
+            callback(true);
+            
+        });
+    },
+    unpinThread(threadIdentifier, callback) {
+        database.query("UPDATE Wątek SET CzyPrzypięty = 0 WHERE IdWątek = ?", [threadIdentifier]).then(() => {
+            
+            callback(true);
+            
+        });
     }
 };
