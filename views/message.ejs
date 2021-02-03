@@ -17,11 +17,11 @@
                         <h2><%= language.message %></h2>
                         <div class="card mt-4 mb-1 col-6">
                             <% if (isSender) { %>
-                                <h3 class="ms-3 mt-3 mb-3"><%= language.sender + ": " + senderUsername %></h3><br>
+                                <h3 class="ms-3 mt-3 mb-3"><%= language.sender + ": " + senderUsername + " (" + language.you + ")" %></h3><br>
                                 <h3 class="ms-3 mt-2"><%= language.recipient + ": " %><a href="<%= "/user/" + message.RecipientIdentifier %>"><%= recipientUsername %></a></h3><br>
                             <% } else { %>
                                 <h3 class="ms-3 mt-3 mb-3"><%= language.sender + ": "%><a href="<%= "/user/" + message.SenderIdentifier %>"><%= senderUsername %></a></h3><br>
-                                <h3 class="ms-3 mt-2"><%= language.recipient + ": " + recipientUsername %></h3><br>
+                                <h3 class="ms-3 mt-2"><%= language.recipient + ": " + recipientUsername + " (" + language.you + ")" %></h3><br>
                             <% } %>
                             <h3 class="ms-3 mt-2"><%= language.sentDate + ": " + message.SentDate %></h3><br>
                             <h3 class="ms-3 mt-2 mb-3"><%= language.subject + ": " + message.Title %></h3><br>

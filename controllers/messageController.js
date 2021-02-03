@@ -224,7 +224,7 @@ var messageController = {
                                     errorMessage: messageHandler.retrieveErrorMessage(req),
                                     noticeMessage: messageHandler.retrieveNoticeMessage(req),
                                     isSender: false,
-                                    recipientUsername: retrievedMessage.RecipientUsername + " (you)",
+                                    recipientUsername: retrievedMessage.RecipientUsername,
                                     senderUsername: retrievedMessage.SenderUsername,
                                     message: retrievedMessage
                                 });
@@ -240,7 +240,7 @@ var messageController = {
                                 noticeMessage: messageHandler.retrieveNoticeMessage(req),
                                 isSender: true,
                                 recipientUsername: retrievedMessage.RecipientUsername,
-                                senderUsername: retrievedMessage.SenderUsername + " (you)",
+                                senderUsername: retrievedMessage.SenderUsername,
                                 message: retrievedMessage
                             });
                         }
