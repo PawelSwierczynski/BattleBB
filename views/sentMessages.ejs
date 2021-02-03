@@ -8,31 +8,42 @@
         <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
         <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
 
-        <% if (matchedThreads != null) { %>
+        <% if (sentMessages != null) { %>
             <main>
                 <div class="container-fluid mt-5">
+                    <%- include("./partialViews/messageNavigation.ejs", { language: language }); %>
+                    
+                    <h2 class="mb-4"><%= language.sentMessages %></h2>
+
                     <div class="row">
-                        <h2 class="mb-4"><%= language.searchResults %></h2>
                         <div class="col-md-12">
                             <div class="card mb-3">
                                 <div class="card-header pr-0 pl-0">
                                     <div class="row no-gutters align-items-center w-100">
                                         <div class="d-none d-md-block col-12 text-muted">
                                             <div class="row no-gutters align-items-center">
-                                                <div class="col-6"><%= language.threads %></div>
-                                                <div class="col-3"><%= language.posts %></div>
-                                                <div class="col-2"><%= language.created %></div>
+                                                <div class="col-6"><%= language.subject %></div>
+                                                <div class="col-3"><%= language.recipient %></div>
+                                                <div class="col-2"><%= language.sentDate %></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <% matchedThreads.forEach(function(matchedThread) { %>
-                                    <%- include("./partialViews/matchedThread", { matchedThread: matchedThread }) %>
+                                <% sentMessages.forEach(function(sentMessage) { %>
+                                    <%- include("./partialViews/sentMessage", { sentMessage: sentMessage }) %>
                                 <% }); %>
                             </div>
                         </div>
                     </div>
+                </div>
+            </main>
+        <% } else { %>
+            <main>
+                <div class="container-fluid mt-5">
+                    <%- include("./partialViews/messageNavigation.ejs", { language: language }); %>
+                    
+                    <h2 class="mb-4"><%= language.sentMessages %></h2>
                 </div>
             </main>
         <% } %>

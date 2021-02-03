@@ -107,6 +107,7 @@ var userController = {
         res.render("logInPage.ejs", {
             language: languages[req.session.language],
             lastVisitedUrl: req.originalUrl,
+            username: req.session.username || "",
             isLoggedIn: req.session.isLoggedIn,
             userRole: req.session.userRole,
             errorMessage: messageHandler.retrieveErrorMessage(req),

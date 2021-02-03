@@ -51,5 +51,15 @@ module.exports = {
                 callback(true, null);
             }
         });
+    },
+    doesUserExist(username, callback) {
+        database.query("SELECT IdUżytkownik FROM Użytkownik WHERE Login = ?", [username]).then(userIdentifier => {
+            if (userIdentifier[0] != null) {
+                callback(true);
+            }
+            else {
+                callback(false);
+            }
+        });
     }
 };

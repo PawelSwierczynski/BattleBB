@@ -16,6 +16,7 @@ var userRoutes = require("./routes/userRoutes");
 var adminRoutes = require("./routes/adminRoutes");
 var moderatorRoutes = require("./routes/moderatorRoutes");
 var searchRoutes = require("./routes/searchRoutes");
+var messageRoutes = require("./routes/messageRoutes");
 
 var server = express();
 
@@ -52,6 +53,7 @@ server.use("/user", userRoutes);
 server.use("/admin", adminRoutes);
 server.use("/moderator", moderatorRoutes);
 server.use("/search", searchRoutes);
+server.use("/message", messageRoutes);
 
 server.listen(3000, function() {
     console.log("Server started listening at port 3000.");

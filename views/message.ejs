@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+        <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
+
+        <main>
+            <div class="container-fluid mt-5">
+                <%- include("./partialViews/messageNavigation", { language: language }); %>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2><%= language.message %></h2>
+                        <div class="card mt-4 mb-1 col-6">
+                            <% if (isSender) { %>
+                                <h3 class="ms-3 mt-3 mb-3"><%= language.sender + ": " + senderUsername %></h3><br>
+                                <h3 class="ms-3 mt-2"><%= language.recipient + ": " %><a href="<%= "/user/" + message.RecipientIdentifier %>"><%= recipientUsername %></a></h3><br>
+                            <% } else { %>
+                                <h3 class="ms-3 mt-3 mb-3"><%= language.sender + ": "%><a href="<%= "/user/" + message.SenderIdentifier %>"><%= senderUsername %></a></h3><br>
+                                <h3 class="ms-3 mt-2"><%= language.recipient + ": " + recipientUsername %></h3><br>
+                            <% } %>
+                            <h3 class="ms-3 mt-2"><%= language.sentDate + ": " + message.SentDate %></h3><br>
+                            <h3 class="ms-3 mt-2 mb-3"><%= language.subject + ": " + message.Title %></h3><br>
+                        </div>
+                        <div class="card mb-1 col-6">
+                            <h5 class="ms-3 mt-2 mb-3"><%= message.Message %></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <%- include("./partialViews/footer", { language: language })%>
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>

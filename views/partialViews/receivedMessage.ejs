@@ -1,0 +1,16 @@
+<hr class="m-0">
+<div class="card-body py-3">
+    <div class="row no-gutters align-items-center">
+        <% if (receivedMessage.IsRead) { %>
+            <div class="col"><a href="<%= "/message/read/" + receivedMessage.Identifier %>" class="text-big font-weight-semibold" data-abc="true"><%= receivedMessage.Title %></a></div>
+        <% } else { %>
+            <div class="col"><a href="<%= "/message/read/" + receivedMessage.Identifier %>" class="text-big font-weight-semibold" data-abc="true"><strong><%= receivedMessage.Title %></strong></a></div>
+        <% } %>
+        <div class="d-none d-md-block col-6">
+            <div class="row no-gutters align-items-center">
+                <div class="col-5"><a href="<%= "/user/" + receivedMessage.SenderIdentifier %>"><%= receivedMessage.SenderUsername %></a></div>
+                <div class="col-6"><%= receivedMessage.SentDate %></div>
+            </div>
+        </div>
+    </div>
+</div>
