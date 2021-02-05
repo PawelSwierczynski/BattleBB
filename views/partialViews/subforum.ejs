@@ -10,7 +10,21 @@
             </div>
         </div>
     </div>
+    <% var closed = []; %> 
+    <% var open = []; %> 
+    <% var openPinned = []; %> 
     <% threads.forEach(function(thread) { %>
+        <% if(thread.CzyOtwarty === 1) { %>
+            <% if(thread.CzyPrzypięty === 1) { %>
+                <% openPinned.push(thread); %>
+            <% } else { %>
+                <% open.push(thread); %>
+            <% } %>
+        <% } else { %>
+            <% closed.push(thread); %>
+        <% } %>
+    <% }); %>      
+    <% openPinned.forEach(function(thread) { %>
         <% var number = 0; %>        
         <% posts.forEach(function(post) { %>
             <% if(post.IdWątek === thread.IdWątek) { %>
@@ -18,5 +32,23 @@
             <% } %>
         <% }); %> 
         <%- include("./childThread.ejs", { thread: thread, postsNumber: number, subforumIdentifier: subforumIdentifier }); %>
-    <% }); %>                
+    <% }); %> 
+    <% open.forEach(function(thread) { %>
+        <% var number = 0; %>        
+        <% posts.forEach(function(post) { %>
+            <% if(post.IdWątek === thread.IdWątek) { %>
+                <% number = post.PostCount; %>
+            <% } %>
+        <% }); %> 
+        <%- include("./childThread.ejs", { thread: thread, postsNumber: number, subforumIdentifier: subforumIdentifier }); %>
+    <% }); %>   
+    <% closed.forEach(function(thread) { %>
+        <% var number = 0; %>        
+        <% posts.forEach(function(post) { %>
+            <% if(post.IdWątek === thread.IdWątek) { %>
+                <% number = post.PostCount; %>
+            <% } %>
+        <% }); %> 
+        <%- include("./childThread.ejs", { thread: thread, postsNumber: number, subforumIdentifier: subforumIdentifier }); %>
+    <% }); %>                 
 </div>

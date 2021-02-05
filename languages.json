@@ -173,7 +173,9 @@
         "numberOfSidesInvalid": "Liczba ścian kości musi zawierać się w przedziale od 1 do 9999",
         "modifierInvalid": "Podano nieprawidłowy modyfikator.",
         "rollAdded": "Wykonano rzut.",
-        "rolls": "Rzuty kośćmi"
+        "rolls": "Rzuty kośćmi",
+        "pinned": "(Przypięty)",
+        "closed": "(Zamknięty)"
     },
     "en-us": {
         "description": "American English",
@@ -348,6 +350,8 @@
         "numberOfSidesInvalid": "The number of dice's sides must be in the range of 1 to 9999.",
         "modifierInvalid": "Provided modifier is invalid.",
         "rollAdded": "Roll has been added.",
-        "rolls": "Dice rolls"
+        "rolls": "Dice rolls",
+        "pinned": "(Pinned)",
+        "closed": "(Closed)"
     }
 }
