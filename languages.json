@@ -175,7 +175,17 @@
         "rollAdded": "Wykonano rzut.",
         "rolls": "Rzuty kośćmi",
         "pinned": "(Przypięty)",
-        "closed": "(Zamknięty)"
+        "closed": "(Zamknięty)",
+        "bannedUserAndDeletedPost": "Zablokowano użytkownika i usunięto post",
+        "deletedPost": "Usunięto post",
+        "deletedReport": "Usunięto raport",
+        "deleteUserButton": "Zablokuj użytkownika",
+        "deletePostButton": "Usuń post",
+        "deleteReportButton": "Usuń raport",
+        "showReportsButton": "Pokaż raporty",
+        "reportedPostsTitle": "Zraportowane posty",
+        "noReportedPosts": "Brak zraportowanych postów",
+        "reportedPosts": "Zraportowane posty"
     },
     "en-us": {
         "description": "American English",
@@ -352,6 +362,16 @@
         "rollAdded": "Roll has been added.",
         "rolls": "Dice rolls",
         "pinned": "(Pinned)",
-        "closed": "(Closed)"
+        "closed": "(Closed)",
+        "bannedUserAndDeletedPost": "Banned user and deleted post",
+        "deletedPost": "Deleted post",
+        "deletedReport": "Deleted report",
+        "deleteUserButton": "Block user",
+        "deletePostButton": "Delete post",
+        "deleteReportButton": "Delete report",
+        "showReportsButton": "Show reports",
+        "reportedPostsTitle": "Reported posts",
+        "noReportedPosts": "No reported posts",
+        "reportedPosts": "Reported posts"
     }
 }

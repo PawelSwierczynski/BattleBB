@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/moderatorPanelNavigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+        <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
+
+        <main>
+            <div class="container-fluid mt-5">
+                <div class="row">
+                    <% if(reportedPosts.length === 0) { %>                                                 
+                        <h2><%= language.noReportedPosts %></h2>
+                    <% } else { %>
+                    <div class="col-md-12">
+                        <h2><%= language.reportedPostsTitle %></h2>
+                        <div class="card mb-3 mt-4">
+                            <% reportedPosts.forEach(function(post) { %>                                                 
+                                <%- include("./partialViews/reportedPost", { language: language, post: post, isLoggedIn: isLoggedIn }); %>
+                            <% }) %>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>                
+            </div>
+        </main>
+
+        <%- include("./partialViews/footer", { language: language })%>
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>
