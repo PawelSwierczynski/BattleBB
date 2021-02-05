@@ -12,9 +12,9 @@
             <div class="container-fluid mt-5">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2><%= thread.Title %></h2>
+                        <h2 class="mb-4"><%= thread.Title %></h2>
                         <% posts.forEach(function(post) { %>
-                            <div class="card mb-3 mt-4">
+                            <div class="card mb-3 mt-3">
                                 <%- include("./partialViews/post", { language: language, thread: thread, post: post, isLoggedIn: isLoggedIn }); %>
                             </div>
                             <% if (post.DiceRolls.length > 0) { %>
