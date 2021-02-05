@@ -29,6 +29,11 @@
                         <div class="card mb-1 col-6">
                             <h5 class="ms-3 mt-2 mb-3"><%= message.Message %></h5>
                         </div>
+                        <% if (isSender) { %>
+                            <a href="<%= "/message/new?recipientUsername=" + message.RecipientUsername + "&subject=" + message.Title %>" class="btn btn-primary mb-3 mt-3" role="button"><%= language.sendAnotherMessage %></a>
+                        <% } else { %>
+                            <a href="<%= "/message/new?recipientUsername=" + message.SenderUsername + "&subject=" + message.Title %>" class="btn btn-primary mb-3 mt-3" role="button"><%= language.respond %></a>
+                        <% } %>
                     </div>
                 </div>
             </div>

@@ -21,6 +21,7 @@
                             <h3 class="ms-3 mt-2"><%= language["rank" + userProfile.RankIdentifier] %></h3>
                             <h3 class="ms-3 mt-2 mb-3"><%= language.lastLogInDate + ": " + userProfile.LastLogInDate %></h3>
                         </div>
+                        <a href="<%= "/message/new?recipientUsername=" + userProfile.Username %>" class="btn btn-primary mb-3" role="button"><%= language.sendMessage %></a>
                     </div>
                 </div>
             </div>

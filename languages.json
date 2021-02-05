@@ -153,7 +153,9 @@
         "messageIdentifierInvalid": "Podano nieprawidłowy identyfikator wiadomości.",
         "messageAccessDenied": "Nie masz praw do odczytania tej wiadomości.",
         "message": "Wiadomość",
-        "you": "ty"
+        "you": "ty",
+        "sendAnotherMessage": "Wyślij kolejną wiadomość",
+        "respond": "Odpowiedz"
     },
     "en-us": {
         "description": "American English",
@@ -309,6 +311,8 @@
         "messageIdentifierInvalid": "Provided message identifier is invalid.",
         "messageAccessDenied": "You do not have a permission to read a message with a provided identifier.",
         "message": "Message",
-        "you": "you"
+        "you": "you",
+        "sendAnotherMessage": "Send another message",
+        "respond": "Respond"
     }
 }

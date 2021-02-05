@@ -1,7 +1,7 @@
 "use strict";
 
 const e = require("express");
-var { body, param, validationResult } = require("express-validator");
+var { body, param, query, validationResult } = require("express-validator");
 var languages = require("../languages.json");
 var message = require("../models/message");
 var user = require("../models/user");
@@ -90,6 +90,12 @@ var messageController = {
     },
     retrieveNewMessagePage(req, res) {
         if (req.session.isLoggedIn) {
+            const validationErrors = validationResult(req);
+
+            if (!validationErrors.isEmpty()) {
+                messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+            }
+
             res.render("newMessage.ejs", {
                 language: languages[req.session.language],
                 lastVisitedUrl: req.originalUrl,
@@ -97,8 +103,8 @@ var messageController = {
                 userRole: req.session.userRole,
                 errorMessage: messageHandler.retrieveErrorMessage(req),
                 noticeMessage: messageHandler.retrieveNoticeMessage(req),
-                recipientUsername: null,
-                subject: null,
+                recipientUsername: req.query.recipientUsername,
+                subject: req.query.subject,
                 message: null
             });
         }
@@ -107,6 +113,15 @@ var messageController = {
 
             res.redirect("/user/logIn");
         }
+    },
+    validateRetrieveNewMessage() {
+        return [
+            query("recipientUsername", "recipientUsernameTooShort").optional().isString().isLength({ min: 3 }),
+            query("recipientUsername", "recipientUsernameTooLong").optional().isString().isLength({ max: 30 }),
+            query("recipientUsername", "recipientUsernameInvalidCharacters").optional().matches(/[a-zA-Z0-9\-\_]+/),
+            query("subject", "subjectEmpty").optional().isString().isLength({ min: 1 }),
+            query("subject", "subjectTooLong").optional().isString().isLength({ max: 60 }),
+        ];
     },
     sendMessage(req, res) {
         const validationErrors = validationResult(req);
