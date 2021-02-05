@@ -155,7 +155,9 @@
         "message": "Wiadomość",
         "you": "ty",
         "sendAnotherMessage": "Wyślij kolejną wiadomość",
-        "respond": "Odpowiedz"
+        "respond": "Odpowiedz",
+        "pinned": "(Przypięty)",
+        "closed": "(Zamknięty)"
     },
     "en-us": {
         "description": "American English",
@@ -313,6 +315,8 @@
         "message": "Message",
         "you": "you",
         "sendAnotherMessage": "Send another message",
-        "respond": "Respond"
+        "respond": "Respond",
+        "pinned": "(Pinned)",
+        "closed": "(Closed)"
     }
 }
