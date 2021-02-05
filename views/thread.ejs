@@ -13,11 +13,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2><%= thread.Title %></h2>
-                        <div class="card mb-3 mt-4">
-                            <% posts.forEach(function(post) { %>
+                        <% posts.forEach(function(post) { %>
+                            <div class="card mb-3 mt-4">
                                 <%- include("./partialViews/post", { language: language, thread: thread, post: post, isLoggedIn: isLoggedIn }); %>
-                            <% }) %>
-                        </div>
+                            </div>
+                            <% if (post.DiceRolls.length > 0) { %>
+                                <%- include("./partialViews/diceRolls.ejs", { language: language, post: post }) %>
+                            <% } %>
+                        <% }); %>
                     </div>
                 </div>
                 <% if (isLoggedIn) { %>

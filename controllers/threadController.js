@@ -5,6 +5,7 @@ const config = require("../config.json");
 var { body, param, validationResult } = require("express-validator");
 var languages = require("../languages.json");
 var post = require("../models/post");
+var roll = require("../models/roll");
 var battlecodeParser = require("../utilities/battlecodeParser");
 var messageHandler = require("../utilities/messageHandler");
 
@@ -85,26 +86,35 @@ var threadController = {
 
             const numberOfPages = calculatePageNumber(thread.PostCount);
 
-            postsLatestVersions.forEach(postLatestVersion => {
-                postLatestVersion.Content = battlecodeParser.parseBattlecode(postLatestVersion.Content);
+            var postDiceRolls = Promise.all(postsLatestVersions.map(roll.retrievePostsRolls));
 
-                if (isUserPermittedToEditPost(req.session.isLoggedIn, req.session.username, postLatestVersion.Login, req.session.userRole)) {
-                    postLatestVersion.IsUserPermittedToEditPost = true;
-                }
-            });
-            
-            res.render("thread.ejs", {
-                language: languages[req.session.language],
-                thread: thread,
-                posts: postsLatestVersions,
-                currentPage: req.params.page,
-                numberOfPages: numberOfPages,
-                lastVisitedUrl: req.originalUrl,
-                isLoggedIn: req.session.isLoggedIn,
-                userRole: req.session.userRole,
-                username: req.session.username,
-                errorMessage: messageHandler.retrieveErrorMessage(req),
-                noticeMessage: messageHandler.retrieveNoticeMessage(req)
+            postDiceRolls.then(postDiceRollsResults => {
+                var i = 0;
+
+                postsLatestVersions.forEach(postLatestVersion => {
+                    postLatestVersion.Content = battlecodeParser.parseBattlecode(postLatestVersion.Content);
+                    postLatestVersion.DiceRolls = postDiceRollsResults[i];
+
+                    i++;
+
+                    if (isUserPermittedToEditPost(req.session.isLoggedIn, req.session.username, postLatestVersion.Login, req.session.userRole)) {
+                        postLatestVersion.IsUserPermittedToEditPost = true;
+                    }
+                });
+                
+                res.render("thread.ejs", {
+                    language: languages[req.session.language],
+                    thread: thread,
+                    posts: postsLatestVersions,
+                    currentPage: req.params.page,
+                    numberOfPages: numberOfPages,
+                    lastVisitedUrl: req.originalUrl,
+                    isLoggedIn: req.session.isLoggedIn,
+                    userRole: req.session.userRole,
+                    username: req.session.username,
+                    errorMessage: messageHandler.retrieveErrorMessage(req),
+                    noticeMessage: messageHandler.retrieveNoticeMessage(req)
+                });
             });
         });
     },
@@ -159,7 +169,23 @@ var threadController = {
                     });
                 }
                 else {
-                    res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber);
+                    if (req.body.isUserWillingToRollDice != null && req.body.isUserWillingToRollDice == "on") {
+                        req.session.isUserWillingToRollDice = true;
+
+                        post.retrievePostIdentifier(req.params.threadIdentifier, postNumber, postIdentifier => {
+                            req.session.postIdentifierWithRoll = postIdentifier;
+                            req.session.postWithRollsAddress = "/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber;
+
+                            res.redirect("/roll/newRoll");
+                        });
+
+                        return;
+                    }
+                    else {
+                        req.session.isUserWillingToRollDice = false;
+
+                        res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber);
+                    }
                 }
             });
         }
@@ -244,7 +270,18 @@ var threadController = {
                             });
                         }
                         else {
-                            res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber);
+                            if (req.body.isUserWillingToRollDice != null && req.body.isUserWillingToRollDice == "on") {
+                                req.session.isUserWillingToRollDice = true;
+                                req.session.postIdentifierWithRoll = req.params.postIdentifier;
+                                req.session.postWithRollsAddress = "/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber;
+    
+                                res.redirect("/roll/newRoll");
+                            }
+                            else {
+                                req.session.isUserWillingToRollDice = false;
+
+                                res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber);
+                            }
                         }
                     });
                 }

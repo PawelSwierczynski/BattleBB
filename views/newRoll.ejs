@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/navigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+        <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
+
+        <main>
+            <div class="container-fluid mt-5">
+                <div class="row">
+                    <h2><%= language.newRoll %></h2>
+                    <div class="card mb-3 mt-4"></div>
+                        <form action="<%= lastVisitedUrl %>" method="POST">
+                            <label for="rollDescription" class="form-label"><h4><%= language.rollDescription %></h4></label>
+                            <div class="col-7">
+                                <input type="text" class="form-control" name="rollDescription" id="rollDescription" placeholder="<%= language.rollDescription %>">
+                            </div>
+                            <div class="row">
+                                <label for="numberOfDice" class="form-label mt-4"><h4><%= language.roll %></h4></label>
+                                <div class="me-n1 pe-0" style="width: 5em;">
+                                    <input type="text" class="form-control me-0 pe-0" name="numberOfDice" id="numberOfDice" placeholder="1">
+                                </div>
+                                <div style="width: 2em;">
+                                    <h3>d</h3>
+                                </div>
+                                <div style="width: 6em;">
+                                    <input type="text" class="form-control" name="numberOfSides" id="numberOfSides" placeholder="20">
+                                </div>
+                                <div style="width: 12em;">
+                                    <input type="text" class="form-control" name="modifier" id="modifier" placeholder="<%= language.modifier %>">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3 me-1"><%= language.submitRoll %></button>
+                            <a href="/roll/stopRolling" class="btn btn-primary mt-3" role="button"><%= language.stopRolling %></a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <%- include("./partialViews/footer", { language: language })%>
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>

@@ -1,6 +1,7 @@
 "use strict";
 
 var database = require("../database");
+const { post } = require("../routes/rollRoutes");
 
 function calculateFirstPostIndex(pageNumber, postsPerPageCount) {
     return (pageNumber - 1) * postsPerPageCount + 1;
@@ -67,6 +68,11 @@ module.exports = {
             }
         }).catch(error => {
             callback(true, null);
+        });
+    },
+    retrievePostIdentifier(threadIdentifier, postNumber, callback) {
+        database.query("SELECT Post.IdPost AS PostIdentifier FROM Wątek JOIN Post ON Wątek.IdWątek = Post.IdWątek WHERE Wątek.IdWątek = ? AND Post.NumerPostu = ?", [threadIdentifier, postNumber]).then(postIdentifier => {
+            callback(postIdentifier[0].PostIdentifier);
         });
     }
 };

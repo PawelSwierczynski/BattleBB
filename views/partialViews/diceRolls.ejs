@@ -1,0 +1,12 @@
+<div class="row" style="margin-top: -1rem;">
+    <% post.DiceRolls.forEach(diceRoll => { %>
+        <div class="col-3 me-0">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <%= diceRoll.Description %><br>
+                    <strong><%= diceRoll.Result %></strong> (<%= diceRoll.Formula %>)
+                </div>
+            </div>
+        </div>
+    <% }); %>
+</div>

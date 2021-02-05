@@ -17,7 +17,11 @@
                             <div class="mb-3 col-7">
                                 <textarea class="form-control" name="post" id="post" placeholder="<%= language.addPostText %>" rows="4"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary"><%= language.submitPost %></button>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="isUserWillingToRollDice" id="isUserWillingToRollDice">
+                                <label class="form-check-label" type="label" for="isUserWillingToRollDice"><%= language.isUserWillingToRollDice %></label>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2"><%= language.submitPost %></button>
                         </form>
                     </div>
                 </div>

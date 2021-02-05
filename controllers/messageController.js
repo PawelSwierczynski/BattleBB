@@ -118,7 +118,7 @@ var messageController = {
         return [
             query("recipientUsername", "recipientUsernameTooShort").optional().isString().isLength({ min: 3 }),
             query("recipientUsername", "recipientUsernameTooLong").optional().isString().isLength({ max: 30 }),
-            query("recipientUsername", "recipientUsernameInvalidCharacters").optional().matches(/[a-zA-Z0-9\-\_]+/),
+            query("recipientUsername", "recipientUsernameInvalidCharacters").optional().matches(/^[a-zA-Z0-9\-\_]+$/),
             query("subject", "subjectEmpty").optional().isString().isLength({ min: 1 }),
             query("subject", "subjectTooLong").optional().isString().isLength({ max: 60 }),
         ];
@@ -198,7 +198,7 @@ var messageController = {
             body("recipientUsername", "recipientUsernameMissing").exists(),
             body("recipientUsername", "recipientUsernameTooShort").isString().isLength({ min: 3 }),
             body("recipientUsername", "recipientUsernameTooLong").isString().isLength({ max: 30 }),
-            body("recipientUsername", "recipientUsernameInvalidCharacters").matches(/[a-zA-Z0-9\-\_]+/),
+            body("recipientUsername", "recipientUsernameInvalidCharacters").matches(/^[a-zA-Z0-9\-\_]+$/),
             body("subject", "subjectMissing").exists(),
             body("subject", "subjectEmpty").isString().isLength({ min: 1 }),
             body("subject", "subjectTooLong").isString().isLength({ max: 60 }),
