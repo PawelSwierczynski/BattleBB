@@ -20,5 +20,35 @@ module.exports = {
         database.query("SELECT Login FROM Użytkownik").then(users => {               
             callback(users);
         });                 
+    },
+    retreiveReportedPosts(callback) {   
+        database.query("SELECT DISTINCT Post.IdPost, Wersja.Treść, Post.IdUżytkownik FROM Post JOIN Raport ON Post.IdPost = Raport.IdPost JOIN Wersja ON Raport.IdPost = Wersja.IdPost WHERE Wersja.DataUtworzenia = (SELECT MAX(DataUtworzenia) FROM Wersja WHERE Wersja.IdPost = Raport.IdPost)").then(reportedPosts => {               
+            callback(reportedPosts);
+        });                 
+    },
+    deletePostAndBanUser(IdPost, IdUser, callback) {   
+        database.query("UPDATE Użytkownik SET IdRola = 4 WHERE IdUżytkownik = ?", [IdUser]).then(() => {    
+            database.query("DELETE FROM Wersja WHERE IdPost = ?", [IdPost]).then(() => {
+                database.query("DELETE FROM Raport WHERE IdPost = ?", [IdPost]).then(() => {                                       
+                    database.query("DELETE FROM Post WHERE IdPost = ?", [IdPost]).then(() => {               
+                        callback(true);
+                    });
+                });
+            });
+        });                 
+    },
+    deletePost(IdPost, callback) {     
+            database.query("DELETE FROM Wersja WHERE IdPost = ?", [IdPost]).then(() => {
+                database.query("DELETE FROM Raport WHERE IdPost = ?", [IdPost]).then(() => {                                       
+                    database.query("DELETE FROM Post WHERE IdPost = ?", [IdPost]).then(() => {               
+                        callback(true);
+                    });
+                });
+            });                 
+    },
+    deleteReport(IdPost, callback) {   
+                database.query("DELETE FROM Raport WHERE IdPost = ?", [IdPost]).then(() => {                                                  
+                        callback(true);
+                });                
     }
 };

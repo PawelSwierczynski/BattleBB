@@ -1,0 +1,22 @@
+<hr class="m-0">
+<div class="card-body py-3" id="<%= post.PostIndex %>">
+    <div class="row no-gutters align-items-center">
+        <% if (isLoggedIn) { %>
+            <div class="col-8">
+                <span><%- post.Treść %><br></span>
+            </div>
+            <form class="col-1" action="<%= "/moderator/reports/" + post.IdPost + "/ban/" + post.IdUżytkownik %>" method="POST">
+                <button href="" class="btn btn-primary mt-1" role="button"><%= language.deleteUserButton %></button><br>
+            </form>
+            <form class="col-1" action="<%= "/moderator/reports/" + post.IdPost %>" method="POST">
+                <button href="" class="btn btn-primary mt-1" role="button"><%= language.deletePostButton %></button><br>
+            </form>
+            <form class="col-1" action="<%= "/moderator/reports/deletereport/" + post.IdPost %>" method="POST">
+                <button href="" class="btn btn-primary mt-1" role="button"><%= language.deleteReportButton %></button><br>
+            </form>
+            <form class="col-1" class="" method="POST">
+                <button href="" class="btn btn-primary mt-1" role="button"><%= language.showReportsButton %></button><br>
+            </form>
+        <% } %>
+    </div>
+</div>

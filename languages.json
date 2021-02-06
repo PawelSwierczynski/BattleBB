@@ -181,7 +181,17 @@
         "newPasswordRepeat": "Powtórz nowe hasło",
         "changePassword": "Zmień hasło",
         "newPasswordDontMatch": "Podano różne nowe hasła.",
-        "passwordChanged": "Zmieniono hasło."
+        "passwordChanged": "Zmieniono hasło.",
+        "bannedUserAndDeletedPost": "Zablokowano użytkownika i usunięto post",
+        "deletedPost": "Usunięto post",
+        "deletedReport": "Usunięto raport",
+        "deleteUserButton": "Zablokuj użytkownika",
+        "deletePostButton": "Usuń post",
+        "deleteReportButton": "Usuń raport",
+        "showReportsButton": "Pokaż raporty",
+        "reportedPostsTitle": "Zraportowane posty",
+        "noReportedPosts": "Brak zraportowanych postów",
+        "reportedPosts": "Zraportowane posty"
     },
     "en-us": {
         "description": "American English",
@@ -364,6 +374,16 @@
         "newPasswordRepeat": "Repeat a new password",
         "changePassword": "Change password",
         "newPasswordDontMatch": "Provided new passwords do not match.",
-        "passwordChanged": "Your password has been changed."
+        "passwordChanged": "Your password has been changed.",
+        "bannedUserAndDeletedPost": "Banned user and deleted post",
+        "deletedPost": "Deleted post",
+        "deletedReport": "Deleted report",
+        "deleteUserButton": "Block user",
+        "deletePostButton": "Delete post",
+        "deleteReportButton": "Delete report",
+        "showReportsButton": "Show reports",
+        "reportedPostsTitle": "Reported posts",
+        "noReportedPosts": "No reported posts",
+        "reportedPosts": "Reported posts"
     }
 }
