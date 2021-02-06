@@ -175,7 +175,13 @@
         "rollAdded": "Wykonano rzut.",
         "rolls": "Rzuty kośćmi",
         "pinned": "(Przypięty)",
-        "closed": "(Zamknięty)"
+        "closed": "(Zamknięty)",
+        "oldPassword": "Poprzednie hasło",
+        "newPassword": "Nowe hasło",
+        "newPasswordRepeat": "Powtórz nowe hasło",
+        "changePassword": "Zmień hasło",
+        "newPasswordDontMatch": "Podano różne nowe hasła.",
+        "passwordChanged": "Zmieniono hasło."
     },
     "en-us": {
         "description": "American English",
@@ -352,6 +358,12 @@
         "rollAdded": "Roll has been added.",
         "rolls": "Dice rolls",
         "pinned": "(Pinned)",
-        "closed": "(Closed)"
+        "closed": "(Closed)",
+        "oldPassword": "Previous password",
+        "newPassword": "New password",
+        "newPasswordRepeat": "Repeat a new password",
+        "changePassword": "Change password",
+        "newPasswordDontMatch": "Provided new passwords do not match.",
+        "passwordChanged": "Your password has been changed."
     }
 }

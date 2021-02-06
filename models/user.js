@@ -25,7 +25,7 @@ module.exports = {
     },
     areMatchingCredentialsFound(username, hashedPassword, callback) {
         database.query("SELECT COUNT(Login) AS MatchedCredentialsCount FROM Użytkownik WHERE Login = ? AND Hasło = ?;", [username, hashedPassword]).then(matchedCredentialsCount => {
-            if (matchedCredentialsCount != undefined) {
+            if (matchedCredentialsCount[0].MatchedCredentialsCount == 1) {
                 callback(true)
             }
             else {
@@ -60,6 +60,11 @@ module.exports = {
             else {
                 callback(false);
             }
+        });
+    },
+    changePassword(username, newHashedPassword, newSalt, callback) {
+        database.query("UPDATE Użytkownik SET Hasło = ?, Sól = ? WHERE Login = ?", [newHashedPassword, newSalt, username]).then(() => {
+            callback();
         });
     }
 };

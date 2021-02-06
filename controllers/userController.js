@@ -6,6 +6,7 @@ var user = require("../models/user");
 var passwordHasher = require("../utilities/passwordHasher");
 var dateFormatter = require("../utilities/dateFormatter");
 var messageHandler = require("../utilities/messageHandler");
+const { areMatchingCredentialsFound } = require("../models/user");
 
 function parseErrorMessage(sqlMessageError) {
     if (sqlMessageError.includes("UniqueUsername")) {
@@ -234,6 +235,93 @@ var userController = {
         return [
             param("identifier", "userIdentifierMissing").exists(),
             param("identifier", "userIdentifierInvalid").isInt({ min: 1 })
+        ];
+    },
+    retrieveUserPanel(req, res) {
+        if (req.session.isLoggedIn) {
+            res.render("userPanel.ejs", {
+                language: languages[req.session.language],
+                lastVisitedUrl: req.originalUrl,
+                isLoggedIn: req.session.isLoggedIn,
+                userRole: req.session.userRole,
+                errorMessage: messageHandler.retrieveErrorMessage(req),
+                noticeMessage: messageHandler.retrieveNoticeMessage(req)
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
+    },
+    changePassword(req, res) {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.redirect("/user/panel");
+
+            return;
+        }
+
+        if (req.session.isLoggedIn) {
+            if (req.body.newPassword == req.body.newPasswordRepeat) {
+                user.retrieveSalt(req.session.username, (error, salt) => {
+                    if (error) {
+                        messageHandler.setErrorMessage(req, "usernameNotFound");
+
+                        res.redirect("/");
+                    }
+                    else {
+                        const oldHashedPassword = passwordHasher.hashPassword(req.body.oldPassword, salt);
+
+                        user.areMatchingCredentialsFound(req.session.username, oldHashedPassword, areMatchingCredentialsFound => {
+                            if (areMatchingCredentialsFound) {
+                                const newSalt = passwordHasher.generateSalt();
+                                const newHashedPassword = passwordHasher.hashPassword(req.body.newPassword, newSalt);
+
+                                user.changePassword(req.session.username, newHashedPassword, newSalt, () => {
+                                    messageHandler.setNoticeMessage(req, "passwordChanged");
+
+                                    res.redirect("/user/panel");
+                                });
+                            }
+                            else {
+                                messageHandler.setErrorMessage(req, "incorrectPassword");
+
+                                res.redirect("/user/panel");
+                            }
+                        });
+                    }
+                });
+            }
+            else {
+                messageHandler.setErrorMessage(req, "newPasswordDontMatch");
+
+                res.redirect("/user/panel");
+            }
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
+    },
+    validateChangePassword() {
+        return [
+            body("oldPassword", "passwordMissing").exists(),
+            body("oldPassword", "passwordTooShort").isLength({ min: 6 }),
+            body("oldPassword", "passwordTooLong").isLength({ max: 36 }),
+            body("oldPassword", "passwordInvalidCharacters").matches(/^[a-zA-Z0-9\-\_\!\@\#]+$/),
+            body("newPassword", "passwordMissing").exists(),
+            body("newPassword", "passwordTooShort").isLength({ min: 6 }),
+            body("newPassword", "passwordTooLong").isLength({ max: 36 }),
+            body("newPassword", "passwordInvalidCharacters").matches(/^[a-zA-Z0-9\-\_\!\@\#]+$/),
+            body("newPasswordRepeat", "passwordMissing").exists(),
+            body("newPasswordRepeat", "passwordTooShort").isLength({ min: 6 }),
+            body("newPasswordRepeat", "passwordTooLong").isLength({ max: 36 }),
+            body("newPasswordRepeat", "passwordInvalidCharacters").matches(/^[a-zA-Z0-9\-\_\!\@\#]+$/),
         ];
     }
 };
