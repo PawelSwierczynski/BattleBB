@@ -14,7 +14,7 @@
             <form class="col-1" action="<%= "/moderator/reports/deletereport/" + post.IdPost %>" method="POST">
                 <button href="" class="btn btn-primary mt-1" role="button"><%= language.deleteReportButton %></button><br>
             </form>
-            <form class="col-1" class="" method="POST">
+            <form class="col-1" action="<%= "/moderator/reports/view/" + post.IdPost %>" method="GET">
                 <button href="" class="btn btn-primary mt-1" role="button"><%= language.showReportsButton %></button><br>
             </form>
         <% } %>

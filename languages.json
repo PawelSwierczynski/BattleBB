@@ -191,7 +191,8 @@
         "showReportsButton": "Pokaż raporty",
         "reportedPostsTitle": "Zraportowane posty",
         "noReportedPosts": "Brak zraportowanych postów",
-        "reportedPosts": "Zraportowane posty"
+        "reportedPosts": "Zraportowane posty",
+        "reportsTitle": "Raporty"
     },
     "en-us": {
         "description": "American English",
@@ -384,6 +385,7 @@
         "showReportsButton": "Show reports",
         "reportedPostsTitle": "Reported posts",
         "noReportedPosts": "No reported posts",
-        "reportedPosts": "Reported posts"
+        "reportedPosts": "Reported posts",
+        "reportsTitle": "Reports"
     }
 }

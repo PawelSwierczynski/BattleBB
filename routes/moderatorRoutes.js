@@ -11,5 +11,6 @@ router.get("/reports", moderatorController.retreiveReportedPosts);
 router.post("/reports/:IdPost/ban/:IdUser", moderatorController.deletePostAndBanUser);
 router.post("/reports/:IdPost", moderatorController.deletePost);
 router.post("/reports/deletereport/:IdPost", moderatorController.deleteReport);
+router.get("/reports/view/:IdPost", moderatorController.retreiveReports);
 router.get("/", moderatorController.retreivePanel);
 module.exports = router;

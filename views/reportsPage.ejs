@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/moderatorPanelNavigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+        <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
+
+        <main>
+            <% if(reports.length === 0) { %>                                                 
+                <h2><%= language.noReportedPosts %></h2>
+            <% } else { %>
+            <h2><%= language.reportsTitle %></h2>
+            <div class="container-fluid mt-5"></div>
+                <form class="col-1" action="<%= "/moderator/reports/" + reports[0].IdPost %>" method="POST">
+                    <button href="" class="btn btn-primary mt-1" role="button"><%= language.deletePostButton %></button><br>
+                </form>
+                <form class="col-1" action="<%= "/moderator/reports/deletereport/" + reports[0].IdPost %>" method="POST">
+                    <button href="" class="btn btn-primary mt-1" role="button"><%= language.deleteReportButton %></button><br>
+                </form>
+            </div>
+            <div class="container-fluid mt-5">
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        
+                        <div class="card mb-3 mt-4">
+                            <% reports.forEach(function(report) { %>                                                 
+                                <%- include("./partialViews/report", { language: language, report: report, isLoggedIn: isLoggedIn }); %>
+                            <% }) %>
+                        </div>
+                    </div>
+                    
+                </div>                
+            </div>
+            <% } %>
+        </main>
+
+        <%- include("./partialViews/footer", { language: language })%>
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>

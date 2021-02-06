@@ -101,6 +101,26 @@ var moderatorController = {
             res.redirect("/user/logIn");
         }
     },
+    retreiveReports(req, res) {  
+        if (req.session.isLoggedIn) {
+            moderator.retreiveReports(req.params.IdPost, (reports) => {
+                    res.render("reportsPage.ejs", {
+                        language: languages[req.session.language],
+                        lastVisitedUrl: req.originalUrl,
+                        isLoggedIn: req.session.isLoggedIn,
+                        userRole: req.session.userRole,
+                        reports: reports,
+                        errorMessage: messageHandler.retrieveErrorMessage(req),
+                        noticeMessage: messageHandler.retrieveNoticeMessage(req)  
+                });
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
+    },
     retreivePanel(req, res) {        
         res.render("moderatorPage.ejs", {
             language: languages[req.session.language],

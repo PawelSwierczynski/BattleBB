@@ -50,5 +50,10 @@ module.exports = {
                 database.query("DELETE FROM Raport WHERE IdPost = ?", [IdPost]).then(() => {                                                  
                         callback(true);
                 });                
+    },
+    retreiveReports(IdPost, callback) {   
+        database.query("SELECT * FROM Raport WHERE IdPost = ?", [IdPost]).then(reports => {                                                  
+                callback(reports);
+        });                
     }
 };
