@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <% if (isLoggedIn) { %>
-                    <a href="<%= "/thread/" + thread.Identifier + "/newPost" %>" class="btn btn-primary mt-1 mb-3" role="button"><%= language.newPost %></a><br>
+                    <a href="<%= "/thread/" + thread.Identifier + "/newPost" %>" class="btn btn-primary mt-3 mb-3" role="button"><%= language.newPost %></a><br>
                 <% } %>
                 <span class="me-1"><%= language.pages %>: </span>
                 <% for (i = 1; i <= numberOfPages; i++) { %>

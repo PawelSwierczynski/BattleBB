@@ -130,13 +130,26 @@ var threadController = {
         }
 
         if (req.session.isLoggedIn) {
+            var content = "";
+
+            if (req.session.quoteContent != null) {
+                const quoteContent = req.session.quoteContent;
+                const quoteAuthor = req.session.quoteAuthor;
+
+                req.session.quoteContent = null;
+                req.session.quoteAuthor = null;
+
+                content = "[quote author=" + quoteAuthor + "]" + quoteContent + "[/quote]";
+            }
+
             res.render("newPost.ejs", {
                 language: languages[req.session.language],
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 userRole: req.session.userRole,
                 errorMessage: messageHandler.retrieveErrorMessage(req),
-                noticeMessage: messageHandler.retrieveNoticeMessage(req)
+                noticeMessage: messageHandler.retrieveNoticeMessage(req),
+                content: content
             });
         }
         else {
@@ -165,7 +178,8 @@ var threadController = {
                         isLoggedIn: req.session.isLoggedIn,
                         userRole: req.session.userRole,
                         errorMessage: messageHandler.retrieveErrorMessage(req),
-                        noticeMessage: messageHandler.retrieveNoticeMessage(req)
+                        noticeMessage: messageHandler.retrieveNoticeMessage(req),
+                        content: ""
                     });
                 }
                 else {
@@ -354,6 +368,34 @@ var threadController = {
             res.redirect("/user/logIn");
         }
     },
+    quotePost(req, res) {
+        const validationErrors = validationResult(req);
+
+        if (!validationErrors.isEmpty()) {
+            messageHandler.setErrorMessage(req, validationErrors.errors[0].msg);
+
+            res.redirect("/");
+
+            return;
+        }
+
+        if (req.session.isLoggedIn) {
+            post.getLatestPostVersion(req.params.postIdentifier, (error, content) => {
+                req.session.quoteContent = content;
+                
+                post.retrieveAuthorUsername(req.params.postIdentifier, (error, author) => {
+                    req.session.quoteAuthor = author;
+
+                    res.redirect("/thread/" + req.params.threadIdentifier + "/newPost");
+                });
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
+    },
     validateThreadIdentifier() {
         return [
             param("threadIdentifier", "threadIdentifierMissing").exists(),
@@ -394,6 +436,12 @@ var threadController = {
         const reportReasonErrors = validateReportReason();
 
         return threadIdentifierErrors.concat(postIdentifierErrors, reportReasonErrors);
+    },
+    validateQuotePost() {
+        const threadIdentifierErrors = this.validateThreadIdentifier();
+        const postIdentifierErrors = validatePostIdentifier();
+
+        return threadIdentifierErrors.concat(postIdentifierErrors);
     }
 }
 
