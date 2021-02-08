@@ -13,5 +13,6 @@ router.post("/:threadIdentifier/editPost/:postIdentifier", threadController.vali
 router.get("/:threadIdentifier/reportPost/:postIdentifier", threadController.validateRetrieveReportPost(), threadController.retrieveReportPost);
 router.post("/:threadIdentifier/reportPost/:postIdentifier", threadController.validateReportPost(), threadController.reportPost);
 router.get("/:threadIdentifier/quotePost/:postIdentifier", threadController.validateQuotePost(), threadController.quotePost);
+router.post("/:threadIdentifier/deletePost/:postIdentifier", threadController.deletePost);
 
 module.exports = router;

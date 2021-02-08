@@ -29,6 +29,15 @@ module.exports = {
             callback(error, null);
         });
     },
+    deletePost(IdPost, callback) {
+        database.query("DELETE FROM Wersja WHERE IdPost = ?", [IdPost]).then(() => {
+            database.query("DELETE FROM Raport WHERE IdPost = ?", [IdPost]).then(() => {                                       
+                database.query("DELETE FROM Post WHERE IdPost = ?", [IdPost]).then(() => {               
+                    callback(true);
+                });
+            });
+        });
+    },
     retrieveAuthorUsername(postIdentifier, callback) {
         database.query("SELECT Użytkownik.Login AS Username FROM Post JOIN Użytkownik ON Post.IdUżytkownik = Użytkownik.IdUżytkownik WHERE Post.IdPost = ?;", [postIdentifier]).then(username => {
             callback(false, username[0].Username);

@@ -128,35 +128,43 @@ var threadController = {
 
             return;
         }
-
-        if (req.session.isLoggedIn) {
-            var content = "";
-
-            if (req.session.quoteContent != null) {
-                const quoteContent = req.session.quoteContent;
-                const quoteAuthor = req.session.quoteAuthor;
-
-                req.session.quoteContent = null;
-                req.session.quoteAuthor = null;
-
-                content = "[quote author=" + quoteAuthor + "]" + quoteContent + "[/quote]";
+        if(req.session.userRole === 4)
+        {
+            messageHandler.setErrorMessage(req, "accountBanned");
+    
+            res.redirect("/"); 
+        }
+        else
+        {
+            if (req.session.isLoggedIn) {
+                var content = "";
+    
+                if (req.session.quoteContent != null) {
+                    const quoteContent = req.session.quoteContent;
+                    const quoteAuthor = req.session.quoteAuthor;
+    
+                    req.session.quoteContent = null;
+                    req.session.quoteAuthor = null;
+    
+                    content = "[quote author=" + quoteAuthor + "]" + quoteContent + "[/quote]";
+                }
+    
+                res.render("newPost.ejs", {
+                    language: languages[req.session.language],
+                    lastVisitedUrl: req.originalUrl,
+                    isLoggedIn: req.session.isLoggedIn,
+                    userRole: req.session.userRole,
+                    errorMessage: messageHandler.retrieveErrorMessage(req),
+                    noticeMessage: messageHandler.retrieveNoticeMessage(req),
+                    content: content
+                });
             }
-
-            res.render("newPost.ejs", {
-                language: languages[req.session.language],
-                lastVisitedUrl: req.originalUrl,
-                isLoggedIn: req.session.isLoggedIn,
-                userRole: req.session.userRole,
-                errorMessage: messageHandler.retrieveErrorMessage(req),
-                noticeMessage: messageHandler.retrieveNoticeMessage(req),
-                content: content
-            });
-        }
-        else {
-            messageHandler.setErrorMessage(req, "logInRequired");
-
-            res.redirect("/user/logIn");
-        }
+            else {
+                messageHandler.setErrorMessage(req, "logInRequired");
+    
+                res.redirect("/user/logIn");
+            }
+        }        
     },
     addNewPost(req, res) {
         const validationErrors = validationResult(req);
@@ -168,46 +176,53 @@ var threadController = {
 
             return;
         }
+        if(req.session.userRole === 4)
+        {
+            messageHandler.setErrorMessage(req, "accountBanned");
+    
+            res.redirect("/"); 
 
-        if (req.session.isLoggedIn) {
-            post.addNewPost(req.params.threadIdentifier, req.session.username, req.body.post, (error, postNumber) => {
-                if (error) {
-                    res.render("newPost.ejs", {
-                        language: languages[req.session.language],
-                        lastVisitedUrl: req.originalUrl,
-                        isLoggedIn: req.session.isLoggedIn,
-                        userRole: req.session.userRole,
-                        errorMessage: messageHandler.retrieveErrorMessage(req),
-                        noticeMessage: messageHandler.retrieveNoticeMessage(req),
-                        content: ""
-                    });
-                }
-                else {
-                    if (req.body.isUserWillingToRollDice != null && req.body.isUserWillingToRollDice == "on") {
-                        req.session.isUserWillingToRollDice = true;
-
-                        post.retrievePostIdentifier(req.params.threadIdentifier, postNumber, postIdentifier => {
-                            req.session.postIdentifierWithRoll = postIdentifier;
-                            req.session.postWithRollsAddress = "/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber;
-
-                            res.redirect("/roll/newRoll");
+            return;
+        }
+            if (req.session.isLoggedIn) {
+                post.addNewPost(req.params.threadIdentifier, req.session.username, req.body.post, (error, postNumber) => {
+                    if (error) {
+                        res.render("newPost.ejs", {
+                            language: languages[req.session.language],
+                            lastVisitedUrl: req.originalUrl,
+                            isLoggedIn: req.session.isLoggedIn,
+                            userRole: req.session.userRole,
+                            errorMessage: messageHandler.retrieveErrorMessage(req),
+                            noticeMessage: messageHandler.retrieveNoticeMessage(req),
+                            content: ""
                         });
-
-                        return;
                     }
                     else {
-                        req.session.isUserWillingToRollDice = false;
-
-                        res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber);
+                        if (req.body.isUserWillingToRollDice != null && req.body.isUserWillingToRollDice == "on") {
+                            req.session.isUserWillingToRollDice = true;
+    
+                            post.retrievePostIdentifier(req.params.threadIdentifier, postNumber, postIdentifier => {
+                                req.session.postIdentifierWithRoll = postIdentifier;
+                                req.session.postWithRollsAddress = "/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber;
+    
+                                res.redirect("/roll/newRoll");
+                            });
+    
+                            return;
+                        }
+                        else {
+                            req.session.isUserWillingToRollDice = false;
+    
+                            res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + calculatePageNumber(postNumber) + "#" + postNumber);
+                        }
                     }
-                }
-            });
-        }
-        else {
-            messageHandler.setErrorMessage(req, "logInRequired");
-
-            res.redirect("/user/login");
-        }
+                });
+            }
+            else {
+                messageHandler.setErrorMessage(req, "logInRequired");
+    
+                res.redirect("/user/login");
+            }
     },
     retrieveEditPostPage(req, res) {
         const validationErrors = validationResult(req);
@@ -219,7 +234,14 @@ var threadController = {
 
             return;
         }
+        if(req.session.userRole === 4)
+        {
+            messageHandler.setErrorMessage(req, "accountBanned");
+    
+            res.redirect("/"); 
 
+            return;
+        }
         if (req.session.isLoggedIn) {
             retrieveIsUserPermittedToEditPost(req.session.username, req.session.userRole, req.params.postIdentifier).then(isUserPermittedToEditPost => {
                 if (isUserPermittedToEditPost) {
@@ -266,6 +288,14 @@ var threadController = {
             return;
         }
 
+        if(req.session.userRole === 4)
+        {
+            messageHandler.setErrorMessage(req, "accountBanned");
+    
+            res.redirect("/"); 
+
+            return;
+        }
         if (req.session.isLoggedIn) {
             retrieveIsUserPermittedToEditPost(req.session.username, req.session.userRole, req.params.postIdentifier).then(isUserPermittedToEditPost => {
                 if (isUserPermittedToEditPost) {
@@ -322,7 +352,14 @@ var threadController = {
 
             return;
         }
+        if(req.session.userRole === 4)
+        {
+            messageHandler.setErrorMessage(req, "accountBanned");
+    
+            res.redirect("/"); 
 
+            return;
+        }
         if (req.session.isLoggedIn) {
             res.render("reportPost.ejs", {
                 language: languages[req.session.language],
@@ -349,7 +386,14 @@ var threadController = {
 
             return;
         }
+        if(req.session.userRole === 4)
+        {
+            messageHandler.setErrorMessage(req, "accountBanned");
+    
+            res.redirect("/"); 
 
+            return;
+        }
         if (req.session.isLoggedIn) {
             post.reportPost(req.body.reportReason, req.params.postIdentifier, req.session.username, (error, postNumber) => {
                 if (error) {
@@ -378,7 +422,14 @@ var threadController = {
 
             return;
         }
+        if(req.session.userRole === 4)
+        {
+            messageHandler.setErrorMessage(req, "accountBanned");
+    
+            res.redirect("/"); 
 
+            return;
+        }
         if (req.session.isLoggedIn) {
             post.getLatestPostVersion(req.params.postIdentifier, (error, content) => {
                 req.session.quoteContent = content;
@@ -388,6 +439,33 @@ var threadController = {
 
                     res.redirect("/thread/" + req.params.threadIdentifier + "/newPost");
                 });
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
+    },
+    deletePost(req, res) {
+        if(req.session.userRole === 4)
+        {
+            messageHandler.setErrorMessage(req, "accountBanned");
+    
+            res.redirect("/"); 
+
+            return;
+        }
+        if (req.session.isLoggedIn) {
+            post.deletePost(req.params.postIdentifier, (error) => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "deletedPost");
+                }
+
+                res.redirect("/thread/" + req.params.threadIdentifier + "/page/" + 1);
             });
         }
         else {

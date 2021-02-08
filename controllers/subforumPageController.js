@@ -37,6 +37,14 @@ var subforumPageController = {
         }
     },
     addNewThread(req, res) {
+        if(req.session.userRole === 4)
+        {
+            messageHandler.setErrorMessage(req, "accountBanned");
+    
+            res.redirect("/"); 
+
+            return;
+        }
         if (req.session.isLoggedIn) {
             thread.addNewThread(req.params.identifier, req.body.threadTitle, req.session.username, req.body.post, (error, threadIdentifier) => {
                 if (error) {
@@ -133,7 +141,26 @@ var subforumPageController = {
 
             res.redirect("/user/logIn");
         }
-    }
+    },
+    deleteThread(req, res) {
+        if (req.session.isLoggedIn) {
+            thread.deleteThread(req.params.threadIdentifier, (error) => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "deletedThread");
+                }
+
+                res.redirect("/category/subforum?identifier=" + req.params.identifier);
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "logInRequired");
+
+            res.redirect("/user/logIn");
+        }
+    },
 }
 
 module.exports = subforumPageController;

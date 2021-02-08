@@ -84,5 +84,12 @@ module.exports = {
             callback(true);
             
         });
+    },
+    deleteThread(threadIdentifier, callback) {
+        database.query("CALL deleteThread(?);", [threadIdentifier]).then(() => {
+            
+            callback(true);
+            
+        });
     }
 };

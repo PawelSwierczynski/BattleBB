@@ -143,7 +143,14 @@ var messageController = {
 
             return;
         }
+        if(req.session.userRole === 4)
+        {
+            messageHandler.setErrorMessage(req, "accountBanned");
+    
+            res.redirect("/"); 
 
+            return;
+        }
         if (req.session.isLoggedIn) {
             user.doesUserExist(req.body.recipientUsername, doesRecipientExist => {
                 if (doesRecipientExist) {

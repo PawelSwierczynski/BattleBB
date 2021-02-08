@@ -16,7 +16,13 @@
                     <a href="<%= "/thread/" + thread.Identifier + "/editPost/" + post.Identifier %>" class="btn btn-primary mt-1" role="button"><%= language.editPost %></a><br>
                 <% } %>
                 <a href="<%= "/thread/" + thread.Identifier + "/quotePost/" + post.Identifier %>" class="btn btn-primary mt-1" role="button"><%= language.quotePost %></a>
-                <a href="<%= "/thread/" + thread.Identifier + "/reportPost/" + post.Identifier %>" class="btn btn-danger mt-1" role="button"><%= language.reportPost %></a>
+                <% if(userRole === 1 || userRole === 2) { %>
+                    <form action="<%= "/thread/" + thread.Identifier + "/deletePost/" + post.Identifier %>" method="POST">
+                        <button class="btn btn-danger mt-1" role="button"><%= language.deletePostButton %></button>
+                    </form>
+                <% } else { %>
+                    <a href="<%= "/thread/" + thread.Identifier + "/reportPost/" + post.Identifier %>" class="btn btn-danger mt-1" role="button"><%= language.reportPost %></a>
+                <% } %>     
             </div>
         <% } else { %>
             <div class="col-10">

@@ -195,7 +195,10 @@
         "reportsTitle": "Raporty",
         "quotePost": "Cytuj post",
         "moderatorRoleRequired": "Wymagane konto z uprawnieniami moderatora",
-        "adminRoleRequired": "Wymagane konto z uprawnianiami administratora"
+        "adminRoleRequired": "Wymagane konto z uprawnianiami administratora",
+        "deletedThread": "Usunięto wątek",
+        "deleteThreadButton": "Usuń wątek",
+        "accountBanned": "Konto zablokowane"
     },
     "en-us": {
         "description": "American English",
@@ -392,6 +395,9 @@
         "reportsTitle": "Reports",
         "quotePost": "Quote post",
         "moderatorRoleRequired": "Moderator role required",
-        "adminRoleRequired": "Administrator role required"
+        "adminRoleRequired": "Administrator role required",
+        "deletedThread": "Thread deleted",
+        "deleteThreadButton": "Delete thread",
+        "accountBanned": "Account banned"
     }
 }

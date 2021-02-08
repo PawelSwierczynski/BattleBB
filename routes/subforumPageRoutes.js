@@ -12,5 +12,6 @@ router.post("/:identifier/closeThread/:threadIdentifier", subforumPageController
 router.post("/:identifier/openThread/:threadIdentifier", subforumPageController.openThread);
 router.post("/:identifier/pinThread/:threadIdentifier", subforumPageController.pinThread);
 router.post("/:identifier/unpinThread/:threadIdentifier", subforumPageController.unpinThread);
+router.post("/:identifier/deleteThread/:threadIdentifier", subforumPageController.deleteThread);
 
 module.exports = router;
