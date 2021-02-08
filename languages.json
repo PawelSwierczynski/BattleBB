@@ -193,7 +193,9 @@
         "noReportedPosts": "Brak zraportowanych postów",
         "reportedPosts": "Zraportowane posty",
         "reportsTitle": "Raporty",
-        "quotePost": "Cytuj post"
+        "quotePost": "Cytuj post",
+        "moderatorRoleRequired": "Wymagane konto z uprawnieniami moderatora",
+        "adminRoleRequired": "Wymagane konto z uprawnianiami administratora"
     },
     "en-us": {
         "description": "American English",
@@ -388,6 +390,8 @@
         "noReportedPosts": "No reported posts",
         "reportedPosts": "Reported posts",
         "reportsTitle": "Reports",
-        "quotePost": "Quote post"
+        "quotePost": "Quote post",
+        "moderatorRoleRequired": "Moderator role required",
+        "adminRoleRequired": "Administrator role required"
     }
 }
