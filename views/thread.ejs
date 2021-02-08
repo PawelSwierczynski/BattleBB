@@ -23,7 +23,7 @@
                         <% }); %>
                     </div>
                 </div>
-                <% if (isLoggedIn) { %>
+                <% if (isLoggedIn && thread.IsOpen === 1) { %>
                     <a href="<%= "/thread/" + thread.Identifier + "/newPost" %>" class="btn btn-primary mt-3 mb-3" role="button"><%= language.newPost %></a><br>
                 <% } %>
                 <span class="me-1"><%= language.pages %>: </span>
