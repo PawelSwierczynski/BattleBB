@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("./partialViews/head", { mainTitle: language.mainTitle }); %>        
+    </head>
+
+    <body class="container pt-0">
+        <%- include("./partialViews/adminPanelNavigation", { language: language, lastVisitedUrl: lastVisitedUrl, isLoggedIn: isLoggedIn, userRole: userRole }) %>
+        <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
+        <main>
+          <h2><%= language.removeCategoryTitle %></h2>
+              <form action="/admin/removeCategory" method="POST">
+                <div class="form-group">
+                    <label for="parentCategory"><%= language.category %></label>
+                    <select class="form-control" name="categoryName" id="categoryName">
+                      <% categories.forEach(function(category) { %>
+                        <option><%= category["Nazwa"] %></option>
+                      <% }); %>                      
+                    </select>
+                </div>              
+                <button type="submit" class=" btn btn-primary"><%= language.removeButton %></button>
+              </form>
+        </main>
+        <%- include("./partialViews/footer", { language: language })%>        
+        <%- include("./partialViews/bootstrapLibraries"); %>
+    </body>
+</html>

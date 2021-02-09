@@ -9,13 +9,13 @@
         <%- include("./partialViews/messages", { language: language, errorMessage: errorMessage, noticeMessage: noticeMessage }) %>
 
         <main>
-            <% if (subforums.length === 0) { %>
+            <% if (subforums.length === 0 && categories.length === 0) { %>
                 <h1><%= language.noForums %></h1>
             <% } else { %>
             <div class="container-fluid mt-5">
                 <div class="row">
                     <div class="col-md-12">
-                        <%- include("./partialViews/subforums", { subforums: subforums, parentCategoryName: parentCategoryName, threads: threads }); %>
+                        <%- include("./partialViews/subforums", { subforums: subforums, parentCategoryName: parentCategoryName, threads: threads, categories: categories, threadsCategories: threadsCategories }); %>
                     </div>
                 </div>
             </div>

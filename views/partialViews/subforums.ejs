@@ -18,5 +18,15 @@
             <% } %>
         <% }); %> 
         <%- include("./childSubforum.ejs", { subforum: subforum, threadNumber: number }); %>
-    <% }); %>                
+    <% }); %> 
+    
+    <% categories.forEach(function(category) { %>
+        <% var number = 0; %>
+        <% threadsCategories.forEach(function(thread) { %>
+            <% if(thread.IdCategory === category.IdKategoria) { %>
+                <% number = thread.ThreadCount; %>
+            <% } %>
+        <% }); %> 
+        <%- include("./childCategory2.ejs", { category: category, threadNumber: number }); %>
+    <% }); %> 
 </div>

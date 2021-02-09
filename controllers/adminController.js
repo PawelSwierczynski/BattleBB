@@ -26,6 +26,48 @@ var adminController = {
           
             
     },
+    retreiveSubforums(req, res) {   
+        if (req.session.userRole === 1) {     
+            admin.retreiveSubforums(subforums => {
+                res.render("removeSubforumPage.ejs", {
+                    language: languages[req.session.language],
+                    lastVisitedUrl: req.originalUrl,
+                    isLoggedIn: req.session.isLoggedIn,
+                    userRole: req.session.userRole,
+                    subforums: subforums,
+                    errorMessage: messageHandler.retrieveErrorMessage(req),
+                    noticeMessage: messageHandler.retrieveNoticeMessage(req)
+                });
+            });  
+        }
+        else{
+            messageHandler.setErrorMessage(req, "adminRoleRequired");
+            res.redirect("/");
+        } 
+          
+            
+    },
+    retreiveCategories2(req, res) {   
+        if (req.session.userRole === 1) {     
+            admin.retreiveCategories(categories => {
+                res.render("removeCategoryPage.ejs", {
+                    language: languages[req.session.language],
+                    lastVisitedUrl: req.originalUrl,
+                    isLoggedIn: req.session.isLoggedIn,
+                    userRole: req.session.userRole,
+                    categories: categories,
+                    errorMessage: messageHandler.retrieveErrorMessage(req),
+                    noticeMessage: messageHandler.retrieveNoticeMessage(req)
+                });
+            });  
+        }
+        else{
+            messageHandler.setErrorMessage(req, "adminRoleRequired");
+            res.redirect("/");
+        } 
+          
+            
+    },
     retreiveSubforum(req, res) {   
         if (req.session.userRole === 1) {     
             admin.retreiveCategories(categories => {
@@ -69,16 +111,15 @@ var adminController = {
     },
     addCategory(req, res) {      
         if (req.session.userRole === 1) {     
-            admin.createNewCategory(req.body.categoryName, req.body.language, req.body.parentCategory, text => {
-                res.render("adminPage.ejs", {
-                    language: languages[req.session.language],
-                    lastVisitedUrl: req.originalUrl,
-                    isLoggedIn: req.session.isLoggedIn,
-                    userRole: req.session.userRole,
-                    text: text,
-                    errorMessage: messageHandler.retrieveErrorMessage(req),
-                    noticeMessage: messageHandler.retrieveNoticeMessage(req)
-                });
+            admin.createNewCategory(req.body.categoryName, req.body.language, req.body.parentCategory, error => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "addedCategory");
+                }
+
+                res.redirect("/admin/");
             });
         }
         else{
@@ -89,16 +130,15 @@ var adminController = {
     },
     addSubforum(req, res) {     
         if (req.session.userRole === 1) {     
-            admin.createNewSubforum(req.body.subforumName, req.body.parentCategory, text => {
-                res.render("adminPage.ejs", {
-                    language: languages[req.session.language],
-                    lastVisitedUrl: req.originalUrl,
-                    isLoggedIn: req.session.isLoggedIn,
-                    userRole: req.session.userRole,
-                    text: text,
-                    errorMessage: messageHandler.retrieveErrorMessage(req),
-                    noticeMessage: messageHandler.retrieveNoticeMessage(req)
-                });
+            admin.createNewSubforum(req.body.subforumName, req.body.parentCategory, error => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "addedSubforum");
+                }
+
+                res.redirect("/admin/");
             });
         }
         else{
@@ -109,16 +149,15 @@ var adminController = {
     },
     changeUserRole(req, res) {   
         if (req.session.userRole === 1) {     
-            admin.changeUserRole(req.body.username, req.body.userRole, text => {
-                res.render("adminPage.ejs", {
-                language: languages[req.session.language],
-                lastVisitedUrl: req.originalUrl,
-                isLoggedIn: req.session.isLoggedIn,
-                userRole: req.session.userRole,
-                text: text,
-                errorMessage: messageHandler.retrieveErrorMessage(req),
-                noticeMessage: messageHandler.retrieveNoticeMessage(req)
-            });
+            admin.changeUserRole(req.body.username, req.body.userRole, error => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "changedUserRole");
+                }
+
+                res.redirect("/admin/");
         }); 
         }
         else{
@@ -143,7 +182,43 @@ var adminController = {
         messageHandler.setErrorMessage(req, "adminRoleRequired");
         res.redirect("/");
     }
-}
+    },
+    removeCategory(req, res) {
+        if (req.session.userRole === 1) {
+            admin.removeCategory(req.body.categoryName, (error) => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "removedCategory");
+                }
+
+                res.redirect("/admin/");
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "adminRoleRequired");
+            res.redirect("/");
+        }
+    },
+    removeSubforum(req, res) {
+        if (req.session.userRole === 1) {
+            admin.removeSubforum(req.body.categoryName, (error) => {
+                if (!error) {
+                    messageHandler.setErrorMessage(req, "justError");
+                }
+                else {
+                    messageHandler.setNoticeMessage(req, "removedSubforum");
+                }
+
+                res.redirect("/admin/");
+            });
+        }
+        else {
+            messageHandler.setErrorMessage(req, "adminRoleRequired");
+            res.redirect("/");
+        }
+    },
 }
 
 module.exports = adminController;

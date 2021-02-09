@@ -6,12 +6,14 @@ var messageHandler = require("../utilities/messageHandler");
 
 var categoryPageController = {
     retrieveSubforum(req, res) {
-        subforum.getSubforums(req.query.identifier, (subforums, parentCategoryName, threads) => {
+        subforum.getSubforums(req.query.identifier, (subforums, parentCategoryName, threads, categories, threadsCategories) => {
             res.render("categoryPage.ejs", {
                 language: languages[req.session.language],
                 subforums: subforums,
                 parentCategoryName: parentCategoryName,
                 threads: threads,
+                categories: categories,
+                threadsCategories: threadsCategories,
                 lastVisitedUrl: req.originalUrl,
                 isLoggedIn: req.session.isLoggedIn,
                 userRole: req.session.userRole,

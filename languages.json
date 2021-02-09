@@ -185,7 +185,7 @@
         "bannedUserAndDeletedPost": "Zablokowano użytkownika i usunięto post",
         "deletedPost": "Usunięto post",
         "deletedReport": "Usunięto raport",
-        "deleteUserButton": "Zablokuj użytkownika",
+        "deleteUserButton": "Zablokuj autora",
         "deletePostButton": "Usuń post",
         "deleteReportButton": "Usuń raport",
         "showReportsButton": "Pokaż raporty",
@@ -198,7 +198,17 @@
         "adminRoleRequired": "Wymagane konto z uprawnianiami administratora",
         "deletedThread": "Usunięto wątek",
         "deleteThreadButton": "Usuń wątek",
-        "accountBanned": "Konto zablokowane"
+        "accountBanned": "Konto zablokowane",
+        "removeButton": "Usuń",
+        "removeSubforumTitle": "Usuń subforum",
+        "removeCategoryTitle": "Usuń kategorię",
+        "subforum": "Subforum",
+        "category": "Kategoria",
+        "removedCategory": "Usunięto kategorię",
+        "removedSubforum": "Usunięto subforum",
+        "addedCategory":"Dodano kategorię",
+        "addedSubforum":"Dodano subforum",
+        "changedUserRole":"Zmieniono rolę użytkownika"
     },
     "en-us": {
         "description": "American English",
@@ -398,6 +408,16 @@
         "adminRoleRequired": "Administrator role required",
         "deletedThread": "Thread deleted",
         "deleteThreadButton": "Delete thread",
-        "accountBanned": "Account banned"
+        "accountBanned": "Account banned",
+        "removeButton": "Remove",
+        "removeSubforumTitle": "Remove subforum",
+        "removeCategoryTitle": "Remove category",
+        "subforum": "Subforum",
+        "category": "Category",
+        "removedCategory": "Removed category",
+        "removedSubforum": "Removed subforum",
+        "addedCategory":"Added category",
+        "addedSubforum":"Added subforum",
+        "changedUserRole":"Changed user role"
     }
 }
