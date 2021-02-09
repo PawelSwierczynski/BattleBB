@@ -1,7 +1,6 @@
 "use strict";
 
 var database = require("../database");
-const { post } = require("../routes/rollRoutes");
 
 function calculateFirstPostIndex(pageNumber, postsPerPageCount) {
     return (pageNumber - 1) * postsPerPageCount + 1;
