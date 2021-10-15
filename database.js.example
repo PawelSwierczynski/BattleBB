@@ -1,0 +1,55 @@
+"use strict";
+
+var mysql = require("mysql");
+var expressMySqlSession = require("express-mysql-session");
+
+var connectionPool = mysql.createPool({
+    host: "",
+    database: "",
+    user: "",
+    password: ""
+});
+
+var mySqlSessionStorage = new expressMySqlSession({}, connectionPool);
+
+module.exports = {
+    query(query) {
+        return new Promise((resolve, reject) => {
+            connectionPool.query(query, function(error, result) {
+                if (error) {
+                    console.log(error);
+
+                    reject(error);
+                }
+
+                try {
+                    resolve(result);
+                }
+                catch (error) {
+                    reject(error);
+                }
+            });
+        });
+    },
+    query(query, parameters) {
+        return new Promise((resolve, reject) => {
+            connectionPool.query(query, parameters, function(error, result) {
+                if (error) {
+                    console.log(error);
+
+                    reject(error);
+                }
+
+                try {
+                    resolve(result);
+                }
+                catch (error) {
+                    reject(error);
+                }
+            });
+        });
+    },
+    getMySqlSessionStorage() {
+        return mySqlSessionStorage;
+    }
+};
